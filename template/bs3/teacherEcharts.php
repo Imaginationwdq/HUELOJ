@@ -34,7 +34,18 @@
     <div class="jumbotron">
         <center><h3>老师界面</h3></center>
 <!--        --><?php //echo $echarts ?>
-        <div id="main" style="width: 600px;height:400px;"></div>
+        <div style="height:50px;">下拉框</div>
+        <div class="row">
+            <div class="col-md-4" style="height: 400px" id="main">
+            </div>
+            <div class="col-md-4" style="background: #66b65e;height: 400px">2</div>
+            <div class="col-md-4" style="background: #1f7471;height: 400px">3</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>
+            <div class="col-md-4" style="background: #80127b;height: 400px">5</div>
+            <div class="col-md-4" style="background: #bb0d36;height: 400px">6</div>
+        </div>
     </div>
 
 </div> <!-- /container -->

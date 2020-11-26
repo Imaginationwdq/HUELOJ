@@ -11,6 +11,8 @@
     <title><?php echo $OJ_NAME?></title>
     <?php include("template/$OJ_TEMPLATE/css.php");?>
 
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <script src="../template/bs3/jquery.min.js"></script>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>jquery.min.js"></script>
 
@@ -31,14 +33,66 @@
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
         <center><h3>老师界面</h3></center>
+<!--        --><?php //echo $echarts ?>
+        <div id="main" style="width: 600px;height:400px;"></div>
     </div>
 
 </div> <!-- /container -->
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<?php //include("template/$OJ_TEMPLATE/js.php");?>
 </body>
 </html>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        series: [
+            {
+                color: ['#339900','#CC0033'],
+                name: '正确情况',
+                type: 'pie',
+                selectedMode: 'single',
+                radius: [0, '30%'],
+                label: {
+                    position: 'inner'
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    {value: 144, name: '正确'},
+                    {value: 601, name: '错误'}
+                ]
+            },
+            {
+                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600'],
+                name: '详细状况',
+                type: 'pie',
+                radius: ['40%', '55%'],
+                label: {
+                    formatter: '{b|{b}}',
+                    rich: {
+                        b: {
+                            // 配置b的样式
+                            fontSize: 14
+                        }
+                    }
+                },
+                data: [
+                    {value: 144, name: '正确'},
+                    {value: 389, name: '答案错误'},
+                    {value: 94, name: '时间超限'},
+                    {value: 1, name: '输出超限'},
+                    {value: 54, name: '运行错误'},
+                    {value: 62, name: '编译错误'}
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>

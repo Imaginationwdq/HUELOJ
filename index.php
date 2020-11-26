@@ -12,7 +12,8 @@ if ( isset( $OJ_ON_SITE_CONTEST_ID ) ) {
 	header( "location:contest.php?cid=" . $OJ_ON_SITE_CONTEST_ID );
 	exit();
 }
-///////////////////////////MAIN	
+///////////////////////////MAIN
+///
 
 $view_news = "";
 $sql = "select * "

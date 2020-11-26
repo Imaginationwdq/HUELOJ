@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b5b86000-2bdb-4b21-b96a-a1fdb58a22c3" name="apache" url="http://localhost">
+        <fileTransfer mountedRoot="E:\phpstudy_pro\WWW\HUELOJ" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -22,7 +22,8 @@
 
 <hr>
 <a class='btn btn-block btn-sm' href="data.php" target="main" title="data"><b>数据</b></a>
-
+<hr>
+<a class='btn btn-block btn-sm' href="class.php" target="main" title="class"><b>导入数据</b></a>
 <hr>
 <a class='btn btn-block btn-sm' href="help.php" target="main" title="<?php echo $MSG_ADMIN?>"><b><?php echo $MSG_ADMIN?></b></a>
 <hr>

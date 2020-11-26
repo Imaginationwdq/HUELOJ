@@ -13,7 +13,6 @@ if ( isset( $OJ_ON_SITE_CONTEST_ID ) ) {
 	exit();
 }
 ///////////////////////////MAIN
-///
 
 $view_news = "";
 $sql = "select * "

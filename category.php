@@ -37,6 +37,7 @@
 		}
 		
 		$view_category.= "</div>";
+
 	}
 
 /////////////////////////Template

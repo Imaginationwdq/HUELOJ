@@ -11,7 +11,7 @@
     <title><?php echo $OJ_NAME?></title>
     <?php include("template/$OJ_TEMPLATE/css.php");?>
 
-    <script src="/HUELOJ/echarts/js/echarts.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
     <script src="../template/bs3/jquery.min.js"></script>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>jquery.min.js"></script>
@@ -31,68 +31,79 @@
 <div class="container">
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
-    <p style="margin-right:10px;float: right;font-size: 16px;" >选择班级:
-
-        <select id="class">
-
-            <?php
-            $user_id = $_SESSION[$OJ_NAME.'_'.'user_id'];
-            $sql = "SELECT `tclass` FROM `users` WHERE `user_id`=?";
-            $result = pdo_query($sql,$user_id);
-            $str_arr = explode(",",$result[0][0]);
-            for ($i=0;$i<=count($str_arr);$i++){
-                if($i!=count($str_arr)){
-                ?>
-                <option value ="<?php echo $str_arr[$i];?>"><?php echo $str_arr[$i];?></option>
-                <?php
-                }else{
-                ?>
-                <option value ="all" selected="selected"><?php echo "all"?></option>
-               <?php
-                }
-            }
-            ?>
-
-        </select>
-
-    </p>
     <div class="jumbotron">
         <center><h3>老师界面</h3></center>
 <!--        --><?php //echo $echarts ?>
-
-        <div class="container-fluid">
-
-            <div class="row">
-
-                <div class="col-md-4">
-                     <div id="Pie" style="width:100%;height: 400px;">
-                        <script src="/web/echarts/js/Pie.js"></script>
-                     </div>
-
-                <div class="col-md-4">
-
-                </div>
-
+        <div style="height:50px;">下拉框</div>
+        <div class="row">
+            <div class="col-md-4" style="height: 400px" id="main">
             </div>
-
+            <div class="col-md-4" style="background: #66b65e;height: 400px">2</div>
+            <div class="col-md-4" style="background: #1f7471;height: 400px">3</div>
         </div>
-
-
-
+        <div class="row">
+            <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>
+            <div class="col-md-4" style="background: #80127b;height: 400px">5</div>
+            <div class="col-md-4" style="background: #bb0d36;height: 400px">6</div>
+        </div>
     </div>
 
 </div> <!-- /container -->
 </body>
 </html>
-<script>
-    window.addEventListener("resize", () => {
-        this.PieChart.resize();
-        this.RaderChart.resize();
-        this.ScatterChart.resize();
-        this.FinChart.resize();
-        this.SankChart.resize();
-    });
-    document.getElementById("body").style.height=document.body.clientHeight-document.getElementById("container").offsetHeight."px";
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        series: [
+            {
+                color: ['#339900','#CC0033'],
+                name: '正确情况',
+                type: 'pie',
+                selectedMode: 'single',
+                radius: [0, '30%'],
+                label: {
+                    position: 'inner'
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    {value: 144, name: '正确'},
+                    {value: 601, name: '错误'}
+                ]
+            },
+            {
+                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600'],
+                name: '详细状况',
+                type: 'pie',
+                radius: ['40%', '55%'],
+                label: {
+                    formatter: '{b|{b}}',
+                    rich: {
+                        b: {
+                            // 配置b的样式
+                            fontSize: 14
+                        }
+                    }
+                },
+                data: [
+                    {value: 144, name: '正确'},
+                    {value: 389, name: '答案错误'},
+                    {value: 94, name: '时间超限'},
+                    {value: 1, name: '输出超限'},
+                    {value: 54, name: '运行错误'},
+                    {value: 62, name: '编译错误'}
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
 </script>
-
-

@@ -11,7 +11,8 @@
     <title><?php echo $OJ_NAME?></title>
     <?php include("template/$OJ_TEMPLATE/css.php");?>
 
-    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<!--    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>-->
+    <script src="/HUELOJ/echarts/js/echarts.min.js"></script>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>jquery.min.js"></script>
 

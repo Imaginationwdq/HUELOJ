@@ -151,7 +151,7 @@ foreach ( $result as $row ) {
     array_push( $chart_data_all, array( $row[ 'md' ], $row[ 'c' ] ) );
 }
 
-$sql = "SELECT in_date md,count(1) c FROM  (select * from solution order by solution_id desc limit 8000) solution where result<13 group by md order by md desc limit 200";
+$sql = "SELECT in_date md,count(1) c FROM  (select * from solution order by solution_id desc limit 8000) solution where result<13 group by md order by md desc";
 $result = mysql_query_cache( $sql ); //mysql_escape_string($sql));
 $chart_data_all1 = array();
 //echo $sql;
@@ -173,10 +173,10 @@ for ($i = 0;$i<7;$i++){
     $Darray[$i] = $counts ;
 }
 //print_r($Darray);
-$len = count($chart_data_all1);
 
 $d = 0;
-    for ($i = 0;$i < $len;$i++){
+
+    for ($i = 0;$i <= count($chart_data_all1);$i++){
          $day1 = (int)substr($chart_data_all1[$i][0],8,2);
          $day2 = (int)substr($chart_data_all[$d][0],8,2);
 
@@ -196,11 +196,14 @@ $d = 0;
 
             }
 
-           // print_r($counts);
+
 
         }  else if ($day1<$day2){
             $Darray[$d] = $counts;
             $d++;
+            if ($d==7)
+                break;
+           // echo "第".$day1."<br>";echo "第".$day2."<br>"; print_r($Darray);
             for ($j = 0;$j<24;$j++){
                 $counts[$j] = 0;
             }

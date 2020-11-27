@@ -173,8 +173,8 @@
 </script>
 <script>
 
-    var d1 = <?php echo json_encode($chart_data_all)?>
-
+    var d1 = <?php echo json_encode($chart_data_all)?>;
+    var d2 = <?php echo json_encode($chart_data_all1)?>;
     var ScatterChart = echarts.init(document.getElementById('Scatter'));
     var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
         '7a', '8a', '9a','10a','11a',

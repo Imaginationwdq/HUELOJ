@@ -63,7 +63,7 @@ else{
         foreach($content as $key => $items) {
 
             $rows = $items->getRowIndex();              //所有行
-            $columns = $items->getCellIterator();       //所有列
+                $columns = $items->getCellIterator();       //所有列
 
             $row_arr = array();
             //确定从哪一行开始读取

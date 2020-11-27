@@ -51,7 +51,91 @@ for ($i = 0; $i<count($result);$i++)
 $student .=" </tbody>
                 </table>";
 //获取班级的数据----------------end--------------
+//第三个图-------------start-------------
 
+$sql = "SELECT date(in_date) md,count(1) c FROM (select * from solution order by solution_id desc limit 8000) solution  where result<13 group by md order by md desc limit 200";
+$result = mysql_query_cache( $sql ); //mysql_escape_string($sql));
+$chart_data_all = array();
+//echo $sql;
+
+foreach ( $result as $row ) {
+    array_push( $chart_data_all, array( $row[ 'md' ], $row[ 'c' ] ) );
+}
+
+$sql = "SELECT in_date md,count(1) c FROM  (select * from solution order by solution_id desc limit 8000) solution where result<13 group by md order by md desc limit 200";
+$result = mysql_query_cache( $sql ); //mysql_escape_string($sql));
+$chart_data_all1 = array();
+//echo $sql;
+
+foreach ( $result as $row ) {
+    array_push( $chart_data_all1, array( $row[ 'md' ], $row[ 'c' ] ) );
+}
+
+
+
+
+$counts = array();
+for ($i = 0;$i<24;$i++){
+    $counts[$i] = 0;
+}
+
+$Darray = array();
+for ($i = 0;$i<7;$i++){
+    $Darray[$i] = $counts ;
+}
+//print_r($Darray);
+$len = count($chart_data_all1);
+
+$d = 0;
+for ($i = 0;$i < $len;$i++){
+    $day1 = (int)substr($chart_data_all1[$i][0],8,2);
+    $day2 = (int)substr($chart_data_all[$d][0],8,2);
+
+    if ($day1==$day2){
+        //天为该天日期
+
+
+        $hour = (int)substr($chart_data_all1[$i][0],11,2);  //获取小时
+
+        for ($h = 0;$h < 24;$h++){
+
+            if ($hour >= $h && $hour < $h+1){   //如果获取的时间在这个时间段内，则提交量累加
+
+                $counts[$hour] = $counts[$hour]  + (int)$chart_data_all1[$i][1];
+
+            }
+
+        }
+
+        // print_r($counts);
+
+    }  else if ($day1<$day2){
+        $Darray[$d] = $counts;
+        $d++;
+        for ($j = 0;$j<24;$j++){
+            $counts[$j] = 0;
+        }
+    }else{
+        break;
+    }
+
+}
+$data = array();
+$z = 0;
+
+for ($i = 0 ; $i< 7 ;$i++){
+    for ($j = 0;$j < 24;$j ++ ){
+
+        $data[$z] = [$i,$j,$Darray[$i][$j]];
+        $z++;
+
+
+    }
+
+}
+
+
+//第三个图-------------end-------------
 //获取班级选项
 $sid=$_SESSION[$OJ_NAME.'_'.'user_id'];
 $sql = "select tclass from users where user_id ='$sid'";

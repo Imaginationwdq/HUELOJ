@@ -47,14 +47,14 @@
         <div class="row">
             <div class="col-md-3" style="height: 400px" id="main1"></div>
             <div class="col-md-6" style="height: 400px" id="main2"></div>
-            <div class="col-md-3" style="background: #1f7471;height: 400px">3</div>
+            <div class="col-md-3" style="height: 400px" id="Scatter">3</div>
         </div>
         <div class="row">
             <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>
             <div class="col-md-4" style="height: 400px ;overflow-y: auto;">
                 <?php echo $student ?>
             </div>
-            <div class="col-md-4" style="background: #bb0d36;height: 400px">
+            <div class="col-md-4" style="height: 400px">
                 <?php echo $t_class2 ?>
             </div>
         </div>
@@ -166,7 +166,69 @@
     window.onresize = function () {
         myChart1.resize();
         myChart2.resize();
+        ScatterChart.resize();
         // myChart2.resize();
     }
+
+</script>
+<script>
+
+    var d1 = <?php echo json_encode($chart_data_all)?>
+
+    var ScatterChart = echarts.init(document.getElementById('Scatter'));
+    var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
+        '7a', '8a', '9a','10a','11a',
+        '12p', '1p', '2p', '3p', '4p', '5p',
+        '6p', '7p', '8p', '9p', '10p', '11p'];
+    var days = [d1[0][0], d1[1][0], d1[2][0],
+        d1[3][0], d1[4][0], d1[5][0], d1[6][0]];
+
+
+    var data =  <?php echo json_encode($data)?>
+
+    option = {
+        tooltip: {
+            position: 'top'
+        },
+        title: [],
+        singleAxis: [],
+        series: []
+    };
+
+    echarts.util.each(days, function (day, idx) {
+        option.title.push({
+            textBaseline: 'middle',
+            top: (idx + 0.5) * 100 / 7 + '%',
+            text: day
+        });
+        option.singleAxis.push({
+            left: 150,
+            type: 'category',
+            boundaryGap: false,
+            data: hours,
+            top: (idx * 100 / 7 + 5) + '%',
+            height: (100 / 7 - 10) + '%',
+            axisLabel: {
+                interval: 2
+            }
+        });
+        option.series.push({
+            singleAxisIndex: idx,
+            coordinateSystem: 'singleAxis',
+            type: 'scatter',
+            data: [],
+            symbolSize: function (dataItem) {
+                return dataItem[1] * 1;
+            }
+        });
+    });
+
+    echarts.util.each(data, function (dataItem) {
+        console.log(dataItem);
+        console.log(dataItem[0]);console.log(dataItem[1]);console.log(dataItem[2]);
+        option.series[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
+    });
+
+    ScatterChart.setOption(option);
 
 </script>

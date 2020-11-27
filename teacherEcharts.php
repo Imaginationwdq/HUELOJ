@@ -140,6 +140,7 @@ if ($d1['value'] != 0)
 $data2=json_encode($s2);
 //获取饼状图的数据----------------end--------------
 
+//
 /////////////////////////Template
 require("template/".$OJ_TEMPLATE."/teacherEcharts.php");
 /////////////////////////Common foot

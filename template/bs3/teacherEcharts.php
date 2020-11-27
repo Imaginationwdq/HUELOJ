@@ -12,7 +12,6 @@
     <?php include("template/$OJ_TEMPLATE/css.php");?>
 
     <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
-    <script src="../template/bs3/jquery.min.js"></script>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>jquery.min.js"></script>
 
@@ -25,36 +24,50 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
 
 <div class="container">
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <center><h3>老师界面</h3></center>
-<!--        --><?php //echo $echarts ?>
-        <div style="height:50px;">下拉框</div>
         <div class="row">
-            <div class="col-md-4" style="height: 400px" id="main">
+            <div class="col-md-10"></div>
+            <div class="dropdown col-md-1">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <?php echo $t_class ?>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php echo $option_class ?>
+                </ul>
             </div>
-            <div class="col-md-4" style="background: #66b65e;height: 400px">2</div>
-            <div class="col-md-4" style="background: #1f7471;height: 400px">3</div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="height: 400px" id="main1"></div>
+            <div class="col-md-6" style="height: 400px" id="main2"></div>
+            <div class="col-md-3" style="background: #1f7471;height: 400px">3</div>
         </div>
         <div class="row">
             <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>
-            <div class="col-md-4" style="background: #80127b;height: 400px">5</div>
-            <div class="col-md-4" style="background: #bb0d36;height: 400px">6</div>
+            <div class="col-md-4" style="height: 400px ;overflow-y: auto;">
+                <?php echo $student ?>
+            </div>
+            <div class="col-md-4" style="background: #bb0d36;height: 400px">
+                <?php echo $t_class2 ?>
+            </div>
         </div>
     </div>
-
 </div> <!-- /container -->
 </body>
 </html>
 <script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
+    // function clickClick(){
+    //     console.log($('#t_class').find('option:selected').text());
+    // }
 
+    // 饼状图
+    var myChart1 = echarts.init(document.getElementById('main1'));
     // 指定图表的配置项和数据
     var option = {
         tooltip: {
@@ -74,13 +87,10 @@
                 labelLine: {
                     show: false
                 },
-                data: [
-                    {value: 144, name: '正确'},
-                    {value: 601, name: '错误'}
-                ]
+                data: <?php echo $data1 ?>
             },
             {
-                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600'],
+                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
                 name: '详细状况',
                 type: 'pie',
                 radius: ['40%', '55%'],
@@ -93,17 +103,69 @@
                         }
                     }
                 },
-                data: [
-                    {value: 144, name: '正确'},
-                    {value: 389, name: '答案错误'},
-                    {value: 94, name: '时间超限'},
-                    {value: 1, name: '输出超限'},
-                    {value: 54, name: '运行错误'},
-                    {value: 62, name: '编译错误'}
-                ]
+                data: <?php echo $data2 ?>
             }
         ]
     };
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+    myChart1.setOption(option);
+
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    // 指定图表的配置项和数据
+    var option = {
+        series: {
+            type: 'sankey',
+            layout: 'none',
+            focusNodeAdjacency: 'allEdges',
+            data: [{
+                name: 'a'
+            }, {
+                name: 'b'
+            }, {
+                name: 'a1'
+            }, {
+                name: 'a2'
+            }, {
+                name: 'b1'
+            }, {
+                name: 'c'
+            }],
+            links: [{
+                source: 'a',
+                target: 'a1',
+                value: 5
+            }, {
+                source: 'a',
+                target: 'a2',
+                value: 3
+            }, {
+                source: 'b',
+                target: 'b1',
+                value: 8
+            }, {
+                source: 'a',
+                target: 'b1',
+                value: 3
+            }, {
+                source: 'b1',
+                target: 'a1',
+                value: 1
+            }, {
+                source: 'b1',
+                target: 'c',
+                value: 2
+            }]
+        }
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart2.setOption(option);
+
+
+    window.onresize = function () {
+        myChart1.resize();
+        myChart2.resize();
+        // myChart2.resize();
+    }
+
 </script>

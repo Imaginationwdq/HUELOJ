@@ -20,7 +20,6 @@ if(stripos($_SERVER['REQUEST_URI'],"template")!==false)exit();
 		require_once($path_fix.'include/online.php');
 		$on = new online();
 	}
-
 ?>
       <!-- Static navbar -->
       <nav class="navbar navbar-default" role="navigation" >

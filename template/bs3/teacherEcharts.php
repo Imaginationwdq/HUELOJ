@@ -12,7 +12,6 @@
     <?php include("template/$OJ_TEMPLATE/css.php");?>
 
     <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
-    <script src="../template/bs3/jquery.min.js"></script>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>jquery.min.js"></script>
 
@@ -32,9 +31,21 @@
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <center><h3>老师界面</h3></center>
-<!--        --><?php //echo $echarts ?>
-        <div style="height:50px;">下拉框</div>
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="dropdown col-md-1">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <?php echo $t_class ?>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php echo $option_class ?>
+                </ul>
+            </div>
+            <div class="col-md-1">
+<!--                --><?php //echo print_r($result) ?>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4" style="height: 400px" id="main">
             </div>
@@ -52,6 +63,11 @@
 </body>
 </html>
 <script type="text/javascript">
+
+    // function clickClick(){
+    //     console.log($('#t_class').find('option:selected').text());
+    // }
+
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
 
@@ -74,13 +90,10 @@
                 labelLine: {
                     show: false
                 },
-                data: [
-                    {value: 144, name: '正确'},
-                    {value: 601, name: '错误'}
-                ]
+                data: <?php echo $data1 ?>
             },
             {
-                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600'],
+                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
                 name: '详细状况',
                 type: 'pie',
                 radius: ['40%', '55%'],
@@ -93,14 +106,7 @@
                         }
                     }
                 },
-                data: [
-                    {value: 144, name: '正确'},
-                    {value: 389, name: '答案错误'},
-                    {value: 94, name: '时间超限'},
-                    {value: 1, name: '输出超限'},
-                    {value: 54, name: '运行错误'},
-                    {value: 62, name: '编译错误'}
-                ]
+                data: <?php echo $data2 ?>
             }
         ]
     };

@@ -36,11 +36,12 @@ $student.="<table class='table table-bordered table-hover'>".
                         </tr>
                     </thead>
                     <tbody>";
-for ($i = 1; $i<count($result);$i++)
+for ($i = 0; $i<count($result);$i++)
 {
     $entity = $result[$i];
+    $ii = $i+1;
     $student .= "<tr class='row'>
-                    <td class='col-md-1'>$i</td>
+                    <td class='col-md-1'>$ii</td>
                     <td class='col-md-4'>$entity[0]</td>
                     <td class='col-md-4'>$entity[1]</td>
                     <td class='col-md-2'>$entity[2]</td>

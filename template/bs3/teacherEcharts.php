@@ -44,10 +44,8 @@
             <div class="col-md-1"></div>
         </div>
         <div class="row">
-            <div class="col-md-3" style="height: 400px" id="main"></div>
-            <div class="col-md-6" style="background: #66b65e;height: 400px">
-<!--                --><?php //echo print_r($student) ?>
-            </div>
+            <div class="col-md-3" style="height: 400px" id="main1"></div>
+            <div class="col-md-6" style="height: 400px" id="main2"></div>
             <div class="col-md-3" style="background: #1f7471;height: 400px">3</div>
         </div>
         <div class="row">
@@ -55,7 +53,9 @@
             <div class="col-md-4" style="height: 400px ;overflow-y: auto;">
                 <?php echo $student ?>
             </div>
-            <div class="col-md-4" style="background: #bb0d36;height: 400px">6</div>
+            <div class="col-md-4" style="background: #bb0d36;height: 400px">
+                <?php echo $t_class2 ?>
+            </div>
         </div>
     </div>
 </div> <!-- /container -->
@@ -67,7 +67,7 @@
     // }
 
     // 饼状图
-    var myChart = echarts.init(document.getElementById('main'));
+    var myChart1 = echarts.init(document.getElementById('main1'));
     // 指定图表的配置项和数据
     var option = {
         tooltip: {
@@ -108,13 +108,63 @@
         ]
     };
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+    myChart1.setOption(option);
 
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    // 指定图表的配置项和数据
+    var option = {
+        series: {
+            type: 'sankey',
+            layout: 'none',
+            focusNodeAdjacency: 'allEdges',
+            data: [{
+                name: 'a'
+            }, {
+                name: 'b'
+            }, {
+                name: 'a1'
+            }, {
+                name: 'a2'
+            }, {
+                name: 'b1'
+            }, {
+                name: 'c'
+            }],
+            links: [{
+                source: 'a',
+                target: 'a1',
+                value: 5
+            }, {
+                source: 'a',
+                target: 'a2',
+                value: 3
+            }, {
+                source: 'b',
+                target: 'b1',
+                value: 8
+            }, {
+                source: 'a',
+                target: 'b1',
+                value: 3
+            }, {
+                source: 'b1',
+                target: 'a1',
+                value: 1
+            }, {
+                source: 'b1',
+                target: 'c',
+                value: 2
+            }]
+        }
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart2.setOption(option);
 
 
     window.onresize = function () {
-        myChart.resize();
-        // myChart1.resize();
+        myChart1.resize();
+        myChart2.resize();
         // myChart2.resize();
     }
 

@@ -21,6 +21,35 @@ $option_class.="<li><a href='teacherEcharts.php'>ALL</a></li>&nbsp;";
 for($i=0;$i<count($str);$i++){
     $option_class.="<li><a href='teacherEcharts2.php?t_class=".(int)$str[$i]."'>".$str[$i]."</a></li>&nbsp;";
 }
+//获取班级的数据----------------start--------------
+$sql = "select user_id,nick,submit from users where defunct = 'N' order by submit desc";
+$result = pdo_query($sql);
+$student = "";
+$student.="<table class='table table-bordered table-hover'>".
+    "<thead>
+                        <tr class='row'>
+                            <td class='col-md-1'>#</td>
+                            <td class='col-md-4'>学号</td>
+                            <td class='col-md-4'>姓名</td>
+                            <td class='col-md-2'>提交次数</td>
+                            <td class='col-md-1'>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>";
+for ($i = 1; $i<count($result);$i++)
+{
+    $entity = $result[$i];
+    $student .= "<tr class='row'>
+                    <td class='col-md-1'>$i</td>
+                    <td class='col-md-4'>$entity[0]</td>
+                    <td class='col-md-4'>$entity[1]</td>
+                    <td class='col-md-2'>$entity[2]</td>
+                    <td class='col-md-1'><a class='btn btn-default btn-sm' href='teacherEcharts3.php?user_id=".$entity[0]."' role=\"button\">查看</a></td>
+                </tr>&nbsp;";
+}
+$student .=" </tbody>
+                </table>";
+//获取班级的数据----------------end--------------
 
 //获取饼状图的 全校的数据----------------start--------------
 //正确个数

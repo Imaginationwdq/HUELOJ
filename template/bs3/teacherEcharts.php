@@ -24,7 +24,6 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
 
 <div class="container">
@@ -42,35 +41,33 @@
                     <?php echo $option_class ?>
                 </ul>
             </div>
-            <div class="col-md-1">
-<!--                --><?php //echo print_r($result) ?>
-            </div>
+            <div class="col-md-1"></div>
         </div>
         <div class="row">
-            <div class="col-md-4" style="height: 400px" id="main">
+            <div class="col-md-3" style="height: 400px" id="main"></div>
+            <div class="col-md-6" style="background: #66b65e;height: 400px">
+<!--                --><?php //echo print_r($student) ?>
             </div>
-            <div class="col-md-4" style="background: #66b65e;height: 400px">2</div>
-            <div class="col-md-4" style="background: #1f7471;height: 400px">3</div>
+            <div class="col-md-3" style="background: #1f7471;height: 400px">3</div>
         </div>
         <div class="row">
             <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>
-            <div class="col-md-4" style="background: #80127b;height: 400px">5</div>
+            <div class="col-md-4" style="height: 400px ;overflow-y: auto;">
+                <?php echo $student ?>
+            </div>
             <div class="col-md-4" style="background: #bb0d36;height: 400px">6</div>
         </div>
     </div>
-
 </div> <!-- /container -->
 </body>
 </html>
 <script type="text/javascript">
-
     // function clickClick(){
     //     console.log($('#t_class').find('option:selected').text());
     // }
 
-    // 基于准备好的dom，初始化echarts实例
+    // 饼状图
     var myChart = echarts.init(document.getElementById('main'));
-
     // 指定图表的配置项和数据
     var option = {
         tooltip: {
@@ -112,4 +109,13 @@
     };
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
+
+
+
+    window.onresize = function () {
+        myChart.resize();
+        // myChart1.resize();
+        // myChart2.resize();
+    }
+
 </script>

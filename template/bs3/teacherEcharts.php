@@ -46,7 +46,7 @@
         </div>
         <div class="row">
             <div class="col-md-3" style="height: 400px" id="main1"></div>
-            <div class="col-md-6" style="height: 400px">
+            <div class="col-md-5" style="height: 400px">
                 <div style="height: 360px" id="main2"></div>
                 <div class="row">
                     <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
@@ -55,7 +55,7 @@
                     <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
                 </div>
             </div>
-            <div class="col-md-3" style="background: #1f7471;height: 400px">3</div>
+            <div class="col-md-4" style="height: 400px" id="Scatter">3</div>
         </div>
         <div class="row">
             <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>

@@ -45,4 +45,4 @@ if(isset($_SESSION[$OJ_NAME.'_'.'user_id'])){
 }
 ?>
 document.write("<?php echo ( $echarts );?>");
-document.getElementById("echarts").innerHTML="<?php echo isset($sid)?$sid:$MSG_LOGIN  ?>";
+document.getElementById("echarts");

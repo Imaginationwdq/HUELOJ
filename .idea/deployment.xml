@@ -5,7 +5,7 @@
       <paths name="apache">
         <serverdata>
           <mappings>
-            <mapping deploy="/HUELOJ" local="$PROJECT_DIR$" web="/HUELOJ" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

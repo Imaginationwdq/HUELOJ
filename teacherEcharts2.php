@@ -152,7 +152,7 @@ foreach ( $result as $row ) {
     array_push( $chart_data_all, array( $row[ 'md' ], $row[ 'c' ] ) );
 }
 
-$sql = "SELECT in_date md,count(1) c FROM  (select * from solution order by solution_id desc limit 8000) solution where result<13 group by md order by md desc";
+$sql = "select in_date md,count(1) c from (select * from solution order by solution_id desc) solution,users where users.user_id = solution.user_id and bclass ='$t_class' and defunct = 'N' and result<13 group by md order by md desc";
 $result = mysql_query_cache( $sql ); //mysql_escape_string($sql));
 $chart_data_all1 = array();
 //echo $sql;

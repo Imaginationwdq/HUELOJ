@@ -140,7 +140,20 @@ if ($d1['value'] != 0)
 $data2=json_encode($s2);
 //获取饼状图的数据----------------end--------------
 
-//
+// 获取基桑图的数据-----------start------------------
+//获取七天前的日期
+
+$date7 = date("Y-m-d",strtotime("-7 day"));
+$date14 = date("Y-m-d",strtotime("-14 day"));
+$date21 = date("Y-m-d",strtotime("-21 day"));
+$date28 = date("Y-m-d",strtotime("-28 day"));
+
+$datetest = date("Y-m-d",strtotime("-3 month"));
+
+$sql = "select count(*) from solution s left join users u on s.user_id = u.user_id where u.bclass in ($t_class2) and s.result = 2";
+$result = pdo_query($sql);
+
+// 获取基桑图的数据-----------start------------------
 /////////////////////////Template
 require("template/".$OJ_TEMPLATE."/teacherEcharts.php");
 /////////////////////////Common foot

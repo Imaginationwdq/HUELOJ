@@ -54,8 +54,8 @@
             <div class="col-md-4" style="height: 400px ;overflow-y: auto;">
                 <?php echo $student ?>
             </div>
-            <div class="col-md-4" style="background: #bb0d36;height: 400px">
-                <?php echo $t_class2 ?>
+            <div class="col-md-4" style="height: 400px">
+                <?php  echo $datetest."<br/>"; ?>
             </div>
         </div>
     </div>
@@ -111,6 +111,7 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart1.setOption(option);
 
+    // 基桑图
     var myChart2 = echarts.init(document.getElementById('main2'));
     // 指定图表的配置项和数据
     var option = {

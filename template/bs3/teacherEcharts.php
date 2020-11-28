@@ -46,7 +46,15 @@
         </div>
         <div class="row">
             <div class="col-md-3" style="height: 400px" id="main1"></div>
-            <div class="col-md-6" style="height: 400px" id="main2"></div>
+            <div class="col-md-6" style="height: 400px">
+                <div style="height: 360px" id="main2"></div>
+                <div class="row">
+                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
+                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
+                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
+                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
+                </div>
+            </div>
             <div class="col-md-3" style="background: #1f7471;height: 400px">3</div>
         </div>
         <div class="row">
@@ -55,7 +63,14 @@
                 <?php echo $student ?>
             </div>
             <div class="col-md-4" style="height: 400px">
-                <?php  echo $datetest."<br/>"; ?>
+<!--                ----------------------------------------------------测试数据------------------------------------------------------------->
+<!--                --><?php
+//                    echo $levelANum."<br/>";
+//                    echo $levelBNum."<br/>";
+//                    echo $levelCNum."<br/>";
+//                    echo $levelDNum."<br/>";
+//                    echo $levelENum."<br/>";
+//                ?>
             </div>
         </div>
     </div>
@@ -63,14 +78,90 @@
 </body>
 </html>
 <script type="text/javascript">
-    // function clickClick(){
-    //     console.log($('#t_class').find('option:selected').text());
-    // }
+    // 基桑图
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip: {
+            trigger: "item"
+        },
+        series: {
+            type: 'sankey',
+            layout: 'none',
+            lineStyle: {
+                color: "source",
+                curveness: 0.5
+            },
+            data: [
+                {name: 'a1', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'b1', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'c1', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'd1', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'e1', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
+                {name: 'a2', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'b2', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'c2', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'd2', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'e2', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
+                {name: 'a3', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'b3', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'c3', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'd3', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'e3', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
+                {name: 'a4', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'b4', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'c4', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'd4', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'e4', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}}
+                ],
+            links:
+            [
+                {source: 'a1', target: 'a2', value: 0},
+                {source: 'b1', target: 'b2', value: 0},
+                {source: 'c1', target: 'c2', value: 0},
+                {source: 'd1', target: 'd2', value: 0},
+                {source: 'e1', target: 'e2', value: 0},
+
+                {source: 'a2', target: 'a3', value: 0},
+                {source: 'b2', target: 'b3', value: 0},
+                {source: 'c2', target: 'c3', value: 0},
+                {source: 'd2', target: 'd3', value: 0},
+                {source: 'e2', target: 'e3', value: 0},
+
+                {source: 'a3', target: 'a4', value: 0},
+                {source: 'b3', target: 'b4', value: 0},
+                {source: 'c3', target: 'c4', value: 0},
+                {source: 'd3', target: 'd4', value: 0},
+                {source: 'e3', target: 'e4', value: 0},
+
+                {source: 'a1', target: 'a2', value: 5},
+                {source: 'b1', target: 'a2', value: 5},
+                {source: 'c1', target: 'b2', value: 5},
+                {source: 'd1', target: 'b2', value: 5},
+                {source: 'e1', target: 'e2', value: 5},
+
+                {source: 'a2', target: 'b3', value: 5},
+                {source: 'b2', target: 'e3', value: 5},
+                {source: 'c2', target: 'd3', value: 5},
+                {source: 'd2', target: 'a3', value: 5},
+                {source: 'e2', target: 'a3', value: 5},
+
+                {source: 'a3', target: 'b4', value: 5},
+                {source: 'b3', target: 'd4', value: 5},
+                {source: 'c3', target: 'd4', value: 5},
+                {source: 'd3', target: 'e4', value: 5},
+                {source: 'e3', target: 'e4', value: 5}
+            ]
+        }
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart2.setOption(option);
 
     // 饼状图
     var myChart1 = echarts.init(document.getElementById('main1'));
     // 指定图表的配置项和数据
-    var option = {
+    option = {
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -111,63 +202,13 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart1.setOption(option);
 
-    // 基桑图
-    var myChart2 = echarts.init(document.getElementById('main2'));
-    // 指定图表的配置项和数据
-    var option = {
-        series: {
-            type: 'sankey',
-            layout: 'none',
-            focusNodeAdjacency: 'allEdges',
-            data: [{
-                name: 'a'
-            }, {
-                name: 'b'
-            }, {
-                name: 'a1'
-            }, {
-                name: 'a2'
-            }, {
-                name: 'b1'
-            }, {
-                name: 'c'
-            }],
-            links: [{
-                source: 'a',
-                target: 'a1',
-                value: 5
-            }, {
-                source: 'a',
-                target: 'a2',
-                value: 3
-            }, {
-                source: 'b',
-                target: 'b1',
-                value: 8
-            }, {
-                source: 'a',
-                target: 'b1',
-                value: 3
-            }, {
-                source: 'b1',
-                target: 'a1',
-                value: 1
-            }, {
-                source: 'b1',
-                target: 'c',
-                value: 2
-            }]
-        }
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart2.setOption(option);
-
-
     window.onresize = function () {
         myChart1.resize();
         myChart2.resize();
         // myChart2.resize();
     }
 
+    // function clickClick(){
+    //     console.log($('#t_class').find('option:selected').text());
+    // }
 </script>

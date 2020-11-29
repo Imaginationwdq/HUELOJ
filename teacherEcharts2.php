@@ -27,22 +27,25 @@ for($i=0;$i<count($str);$i++){
 }
 
 //获取班级的数据----------------start--------------
-$sql = "select user_id,nick,submit from users where bclass ='$t_class' and defunct = 'N' order by submit desc";
+$sql = "select user_id,nick,solved from users where bclass ='$t_class' and defunct = 'N' order by solved desc";
 $result = mysql_query_cache($sql);
+$classAllstudent = $result;
 $student = "";
+$classTotal = 0;
 $student.="<table class='table table-bordered table-hover'>".
                     "<thead>
                         <tr class='row'>
                             <td class='col-md-1'>#</td>
                             <td class='col-md-4'>学号</td>
                             <td class='col-md-4'>姓名</td>
-                            <td class='col-md-2'>提交次数</td>
+                            <td class='col-md-2'>正确</td>
                             <td class='col-md-1'>操作</td>
                         </tr>
                     </thead>
                     <tbody>";
 for ($i = 0; $i<count($result);$i++)
 {
+    $classTotal+=1;
     $entity = $result[$i];
     $ii = $i+1;
     $student .= "<tr class='row'>
@@ -56,6 +59,214 @@ for ($i = 0; $i<count($result);$i++)
 $student .=" </tbody>
                 </table>";
 //获取班级的数据----------------end--------------
+
+// 获取基桑图的数据-----------start------------------
+//获取七天前的日期
+//$date7 = date("Y-m-d",strtotime("-7 day"));
+//$date14 = date("Y-m-d",strtotime("-14 day"));
+//$date21 = date("Y-m-d",strtotime("-21 day"));
+//$date28 = date("Y-m-d",strtotime("-28 day"));
+
+// 获取一周内 该老师的所有班 学生 做对题的数量
+//$sql ="select user_id,solved,bclass from users where bclass in ($t_class2) order by solved desc";
+
+// 开发时，为了测试而使用的日期
+$datetest4 = "".date("Y-m-d",strtotime("-3 month"));
+$datetest3 = "".date("Y-m-d",strtotime("-3 month -7day"));
+$datetest2 = "".date("Y-m-d",strtotime("-3 month -14day"));
+$datetest1 = "".date("Y-m-d",strtotime("-3 month -21day"));
+
+$student1 = array();
+$student2 = array();
+$student3 = array();
+$student4 = array();
+
+$i=0;
+//查询出班里每个学生各个阶段的做题正确数
+foreach ($classAllstudent as $entity){
+    $entity_userId = $entity[0];
+
+    $sql ="select count(distinct problem_id) from solution where result =4 and user_id='$entity_userId' and in_date < '$datetest1'";
+    $result = mysql_query_cache($sql);
+    $s =array();
+    $s[0]=$entity_userId;
+    $s[1]=$result[0][0];
+    $student1[$i]=$s;
+
+    $sql ="select count(distinct problem_id) from solution where result =4 and user_id='$entity_userId' and in_date < '$datetest2'";
+    $result = mysql_query_cache($sql);
+    $s[0]=$entity_userId;
+    $s[1]=$result[0][0];
+    $student2[$i]=$s;
+
+    $sql ="select count(distinct problem_id) from solution where result =4 and user_id='$entity_userId' and in_date < '$datetest3'";
+    $result = mysql_query_cache($sql);
+    $s[0]=$entity_userId;
+    $s[1]=$result[0][0];
+    $student3[$i]=$s;
+
+    $sql ="select count(distinct problem_id) from solution where result =4 and user_id='$entity_userId' and in_date < '$datetest4'";
+    $result = mysql_query_cache($sql);
+    $s[0]=$entity_userId;
+    $s[1]=$result[0][0];
+    $student4[$i]=$s;
+
+    $i+=1;
+}
+// 排序规则
+function student_sort($a,$b) {
+    return $a[1]<$b[1];
+}
+usort($student1,'student_sort');
+usort($student2,'student_sort');
+usort($student3,'student_sort');
+usort($student4,'student_sort');
+
+$studentArray=array("","A","B","C","D","E");
+$studentTest1 = array();
+for ($i=1;$i<=5;$i++){
+    for ($j=1;$j<=5;$j++) {
+        $indexStudent ="student".$studentArray[$i]."1"."to".$studentArray[$j] . "2";
+        $studentTest1[$indexStudent]=0;
+    }
+}
+$studentTest2 = array();
+for ($i=1;$i<=5;$i++){
+    for ($j=1;$j<=5;$j++) {
+        $indexStudent ="student".$studentArray[$i]."2"."to".$studentArray[$j] . "3";
+        $studentTest2[$indexStudent]=0;
+    }
+}
+$studentTest3 = array();
+for ($i=1;$i<=5;$i++){
+    for ($j=1;$j<=5;$j++) {
+        $indexStudent ="student".$studentArray[$i]."3"."to".$studentArray[$j] . "4";
+        $studentTest3[$indexStudent]=0;
+    }
+}
+//AtoB
+for($i=0;$i<count($student1);$i++){
+    $studentName1=$student1[$i][0];
+    $studentResultNum1=$student1[$i][1];
+    $leveli = getLevel($i,$classTotal,"1");
+    for($j=0;$j<count($student2);$j++){
+        $studentName2=$student2[$j][0];
+        $studentResultNum2=$student2[$j][1];
+        if (strcmp($studentName1,$studentName2)==0){
+            $levelj = getLevel($j,$classTotal,"2");
+            $levelItoJ = "student".$leveli."to".$levelj;
+            $studentTest1[$levelItoJ]+=1;
+            break;
+        }
+    }
+}
+
+//BtoC
+for($i=0;$i<count($student2);$i++){
+    $studentName1=$student2[$i][0];
+    $studentResultNum1=$student2[$i][1];
+    $leveli = getLevel($i,$classTotal,"2");
+    for($j=0;$j<count($student3);$j++){
+        $studentName2=$student3[$j][0];
+        $studentResultNum2=$student3[$j][1];
+        if (strcmp($studentName1,$studentName2)==0){
+            $levelj = getLevel($j,$classTotal,"3");
+            $levelItoJ = "student".$leveli."to".$levelj;
+            $studentTest2[$levelItoJ]+=1;
+            break;
+        }
+    }
+}
+
+//CtoD
+for($i=0;$i<count($student3);$i++){
+    $studentName1=$student3[$i][0];
+    $studentResultNum1=$student3[$i][1];
+    $leveli = getLevel($i,$classTotal,"3");
+    for($j=0;$j<count($student4);$j++){
+        $studentName2=$student4[$j][0];
+        $studentResultNum2=$student4[$j][1];
+        if (strcmp($studentName1,$studentName2)==0){
+            $levelj = getLevel($j,$classTotal,"4");
+            $levelItoJ = "student".$leveli."to".$levelj;
+            $studentTest3[$levelItoJ]+=1;
+            break;
+        }
+    }
+}
+
+function getLevel($i,$classTotal,$numi){
+    // 五个等级的人数
+    $levelANum = intval($classTotal/5)+1;
+    $levelBNum = intval($classTotal/5*2)+1;
+    $levelCNum = intval($classTotal/5*3)+1;
+    $levelDNum = intval($classTotal/5*4)+1;
+    $levelENum = $classTotal-$levelDNum;
+    if ($i<$levelANum-1){
+        return  "A".$numi;
+    }elseif ($i>=$levelANum&&$i<$levelBNum){
+        return  "B".$numi;
+    }elseif ($i>=$levelBNum&&$i<$levelCNum){
+        return  "C".$numi;
+    }elseif ($i>=$levelCNum&&$i<$levelDNum){
+        return  "D".$numi;
+    }else{
+        return  "E".$numi;
+    }
+}
+$studentLinks = "[{source: 'A1', target: 'A2', value: 0},
+{source: 'B1', target: 'B2', value: 0},
+{source: 'C1', target: 'C2', value: 0},
+{source: 'D1', target: 'D2', value: 0},
+{source: 'E1', target: 'E2', value: 0},
+
+{source: 'A2', target: 'A3', value: 0},
+{source: 'B2', target: 'B3', value: 0},
+{source: 'C2', target: 'C3', value: 0},
+{source: 'D2', target: 'D3', value: 0},
+{source: 'E2', target: 'E3', value: 0},
+
+{source: 'A3', target: 'A4', value: 0},
+{source: 'B3', target: 'B4', value: 0},
+{source: 'C3', target: 'C4', value: 0},
+{source: 'D3', target: 'D4', value: 0},
+{source: 'E3', target: 'E4', value: 0},";
+//AtoB
+for ($i=1;$i<=5;$i++){
+    for ($j=1;$j<=5;$j++) {
+        $student_source = $studentArray[$i]."1";
+        $student_target = $studentArray[$j]."2";
+        $indexStudent = "student" .$student_source."to".$student_target;
+        if ($studentTest1[$indexStudent]!=0)
+            $studentLinks .= "{source: '$student_source', target: '$student_target', value: $studentTest1[$indexStudent] },";
+    }
+}
+//BtoC
+for ($i=1;$i<=5;$i++){
+    for ($j=1;$j<=5;$j++) {
+        $student_source = $studentArray[$i]."2";
+        $student_target = $studentArray[$j]."3";
+        $indexStudent = "student" .$student_source."to".$student_target;
+        if ($studentTest2[$indexStudent]!=0)
+            $studentLinks .= "{source: '$student_source', target: '$student_target', value: $studentTest2[$indexStudent] },";
+    }
+}
+//CtoD
+for ($i=1;$i<=5;$i++){
+    for ($j=1;$j<=5;$j++) {
+        $student_source = $studentArray[$i]."3";
+        $student_target = $studentArray[$j]."4";
+        $indexStudent = "student" .$student_source."to".$student_target;
+        if ($studentTest3[$indexStudent]!=0){
+            $studentLinks .= "{source: '$student_source', target: '$student_target', value: $studentTest3[$indexStudent] }";
+            if (!($i==5 && $j==5)){
+                $studentLinks .=",";
+            }
+        }
+    }
+}
+$studentLinks .= "]";
+// 获取基桑图的数据-----------end------------------
 
 //获取饼状图的 一个班级的数据----------------start--------------
 //正确个数

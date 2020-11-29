@@ -65,10 +65,18 @@
             <div class="col-md-4" style="height: 400px">
 <!--                ----------------------------------------------------测试数据------------------------------------------------------------->
 <!--                --><?php
-//                    echo $levelANum."<br/>";
-//                    echo $levelBNum."<br/>";
-//                    echo $levelCNum."<br/>";
-//                    echo $levelDNum."<br/>";
+                    echo json_encode($student1)."<br/>";
+                    echo json_encode($student2)."<br/>";
+                    echo json_encode($student3)."<br/>";
+                    echo json_encode($student4)."<br/>";
+                    echo $studentA."<br/>";
+                    echo $studentB."<br/>";
+                    echo $studentC."<br/>";
+                    echo $studentD."<br/>";
+                    echo json_encode($classAllstudent)."<br/>";
+//                    echo $userId."<br/>";
+//                    echo $studentC."<br/>";
+//                    echo $studentD."<br/>";
 //                    echo $levelENum."<br/>";
 //                ?>
             </div>
@@ -93,65 +101,28 @@
                 curveness: 0.5
             },
             data: [
-                {name: 'a1', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
-                {name: 'b1', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
-                {name: 'c1', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
-                {name: 'd1', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
-                {name: 'e1', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
-                {name: 'a2', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
-                {name: 'b2', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
-                {name: 'c2', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
-                {name: 'd2', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
-                {name: 'e2', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
-                {name: 'a3', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
-                {name: 'b3', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
-                {name: 'c3', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
-                {name: 'd3', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
-                {name: 'e3', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
-                {name: 'a4', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
-                {name: 'b4', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
-                {name: 'c4', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
-                {name: 'd4', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
-                {name: 'e4', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}}
+                {name: 'A1', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'B1', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'C1', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'D1', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'E1', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
+                {name: 'A2', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'B2', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'C2', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'D2', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'E2', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
+                {name: 'A3', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'B3', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'C3', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'D3', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'E3', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}},
+                {name: 'A4', "itemStyle": {"normal": {"color": "#18B3AD", "borderColor": "#18B3AD"}}},
+                {name: 'B4', "itemStyle": {"normal": {"color": "#19AB46", "borderColor": "#19AB46"}}},
+                {name: 'C4', "itemStyle": {"normal": {"color": "#E4D518", "borderColor": "#EAD518"}}},
+                {name: 'D4', "itemStyle": {"normal": {"color": "#E79D18", "borderColor": "#E79D18"}}},
+                {name: 'E4', "itemStyle": {"normal": {"color": "#DD331A", "borderColor": "#DD331A"}}}
                 ],
-            links:
-            [
-                {source: 'a1', target: 'a2', value: 0},
-                {source: 'b1', target: 'b2', value: 0},
-                {source: 'c1', target: 'c2', value: 0},
-                {source: 'd1', target: 'd2', value: 0},
-                {source: 'e1', target: 'e2', value: 0},
-
-                {source: 'a2', target: 'a3', value: 0},
-                {source: 'b2', target: 'b3', value: 0},
-                {source: 'c2', target: 'c3', value: 0},
-                {source: 'd2', target: 'd3', value: 0},
-                {source: 'e2', target: 'e3', value: 0},
-
-                {source: 'a3', target: 'a4', value: 0},
-                {source: 'b3', target: 'b4', value: 0},
-                {source: 'c3', target: 'c4', value: 0},
-                {source: 'd3', target: 'd4', value: 0},
-                {source: 'e3', target: 'e4', value: 0},
-
-                {source: 'a1', target: 'a2', value: 5},
-                {source: 'b1', target: 'a2', value: 5},
-                {source: 'c1', target: 'b2', value: 5},
-                {source: 'd1', target: 'b2', value: 5},
-                {source: 'e1', target: 'e2', value: 5},
-
-                {source: 'a2', target: 'b3', value: 5},
-                {source: 'b2', target: 'e3', value: 5},
-                {source: 'c2', target: 'd3', value: 5},
-                {source: 'd2', target: 'a3', value: 5},
-                {source: 'e2', target: 'a3', value: 5},
-
-                {source: 'a3', target: 'b4', value: 5},
-                {source: 'b3', target: 'd4', value: 5},
-                {source: 'c3', target: 'd4', value: 5},
-                {source: 'd3', target: 'e4', value: 5},
-                {source: 'e3', target: 'e4', value: 5}
-            ]
+            links: <?php echo $studentLinks ?>
         }
     };
 

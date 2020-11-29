@@ -65,15 +65,6 @@
             <div class="col-md-4" style="height: 400px">
 <!--                ----------------------------------------------------测试数据------------------------------------------------------------->
 <!--                --><?php
-                    echo json_encode($student1)."<br/>";
-                    echo json_encode($student2)."<br/>";
-                    echo json_encode($student3)."<br/>";
-                    echo json_encode($student4)."<br/>";
-                    echo $studentA."<br/>";
-                    echo $studentB."<br/>";
-                    echo $studentC."<br/>";
-                    echo $studentD."<br/>";
-                    echo json_encode($classAllstudent)."<br/>";
 //                    echo $userId."<br/>";
 //                    echo $studentC."<br/>";
 //                    echo $studentD."<br/>";

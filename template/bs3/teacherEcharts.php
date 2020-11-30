@@ -45,9 +45,9 @@
             <div class="col-md-1"></div>
         </div>
         <div class="row">
-            <div class="col-md-2" style="height: 400px" id="main1"></div>
-            <div class="col-md-7" style="height: 400px">
-                <div style="height: 360px;" id="main2"></div>
+            <div class="col-md-2" style="height: 300px" id="main1"></div>
+            <div class="col-md-7" style="height: 300px">
+                <div style="height: 320px;" id="main2"></div>
                 <div class="row" style="">
                     <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest1?></div>
                     <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest2?></div>
@@ -55,15 +55,16 @@
                     <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest4?></div>
                 </div>
             </div>
-            <div class="col-md-3" style="height: 400px" id="Scatter">3</div>
+            <div class="col-md-3" style="height: 300px" id="Scatter">3</div>
         </div>
         <div class="row">
-            <div class="col-md-3" style="height: 400px">4</div>
-            <div class="col-md-5" style="height: 400px ;overflow-y: auto;">
-                <?php echo $student ?>
+            <div class="col-md-3" style="height: 300px">4</div>
+            <div class="col-md-5" style="height: 300px;">
+               <div style="overflow-y: auto;overflow-x:auto;margin-top: 50px;height: 250px" > <?php echo $student ?> </div>
             </div>
-            <div class="col-md-4" style="height: 400px">
+            <div class="col-md-4" style="height: 300px" id="Finance">
             </div>
+
         </div>
     </div>
 </div> <!-- /container -->
@@ -203,7 +204,7 @@
                 fontStyle:'oblique'
             },
 
-            top: (idx + 0.5) * 100 / 7 + '%',
+            top: (idx + 0.2) * 100 / 7 + '%',
             text: day,
 
         });
@@ -213,7 +214,7 @@
             boundaryGap: false,
             data: hours,
             top: (idx * 100 / 7 + 5) + '%',
-            height: (100 / 7 - 10) + '%',
+            height: (100 / 7 - 15) + '%',
             axisLabel: {
                 interval: 2
             }
@@ -237,5 +238,8 @@
     });
 
     ScatterChart.setOption(option);
+
+</script>
+<script>
 
 </script>

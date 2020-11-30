@@ -45,40 +45,24 @@
             <div class="col-md-1"></div>
         </div>
         <div class="row">
-            <div class="col-md-3" style="height: 400px" id="main1"></div>
-            <div class="col-md-5" style="height: 400px">
-                <div style="height: 360px" id="main2"></div>
-                <div class="row">
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
+            <div class="col-md-2" style="height: 400px" id="main1"></div>
+            <div class="col-md-7" style="height: 400px">
+                <div style="height: 360px;" id="main2"></div>
+                <div class="row" style="">
+                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest1?></div>
+                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest2?></div>
+                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest3?></div>
+                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest4?></div>
                 </div>
             </div>
-            <div class="col-md-4" style="height: 400px" id="Scatter">3</div>
+            <div class="col-md-3" style="height: 400px" id="Scatter">3</div>
         </div>
         <div class="row">
-            <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>
+            <div class="col-md-4" style="height: 400px">4</div>
             <div class="col-md-4" style="height: 400px ;overflow-y: auto;">
                 <?php echo $student ?>
             </div>
             <div class="col-md-4" style="height: 400px">
-<!--                ----------------------------------------------------测试数据------------------------------------------------------------->
-<!--                --><?php
-                    echo json_encode($student1)."<br/>";
-                    echo json_encode($student2)."<br/>";
-                    echo json_encode($student3)."<br/>";
-                    echo json_encode($student4)."<br/>";
-                    echo $studentA."<br/>";
-                    echo $studentB."<br/>";
-                    echo $studentC."<br/>";
-                    echo $studentD."<br/>";
-                    echo json_encode($classAllstudent)."<br/>";
-//                    echo $userId."<br/>";
-//                    echo $studentC."<br/>";
-//                    echo $studentD."<br/>";
-//                    echo $levelENum."<br/>";
-//                ?>
             </div>
         </div>
     </div>
@@ -90,13 +74,16 @@
     var myChart2 = echarts.init(document.getElementById('main2'));
     // 指定图表的配置项和数据
     var option = {
+
         tooltip: {
             trigger: "item"
         },
         series: {
             type: 'sankey',
+            left: 'center',
+            width:'80%',
             layout: 'none',
-            lineStyle: {
+                lineStyle: {
                 color: "source",
                 curveness: 0.5
             },
@@ -143,7 +130,7 @@
                 name: '正确情况',
                 type: 'pie',
                 selectedMode: 'single',
-                radius: [0, '30%'],
+                radius: [0, '60%'],
                 label: {
                     position: 'inner'
                 },
@@ -156,13 +143,14 @@
                 color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
                 name: '详细状况',
                 type: 'pie',
-                radius: ['40%', '55%'],
+                radius: ['75%', '100%'],
                 label: {
+                    show: false,
                     formatter: '{b|{b}}',
                     rich: {
                         b: {
                             // 配置b的样式
-                            fontSize: 14
+                            fontSize: 10
                         }
                     }
                 },
@@ -193,8 +181,8 @@
         '7a', '8a', '9a','10a','11a',
         '12p', '1p', '2p', '3p', '4p', '5p',
         '6p', '7p', '8p', '9p', '10p', '11p'];
-    var days = [d1[0][0], d1[1][0], d1[2][0],
-        d1[3][0], d1[4][0], d1[5][0], d1[6][0]];
+    var days = [d1[0][0]+" :", d1[1][0]+" :", d1[2][0]+" :",
+        d1[3][0]+" :", d1[4][0]+" :", d1[5][0]+" :", d1[6][0]+" :"];
 
 
     var data =  <?php echo json_encode($data)?>
@@ -210,12 +198,17 @@
 
     echarts.util.each(days, function (day, idx) {
         option.title.push({
-            textBaseline: 'middle',
+            textStyle:{
+                fontSize:10,
+                fontStyle:'oblique'
+            },
+
             top: (idx + 0.5) * 100 / 7 + '%',
-            text: day
+            text: day,
+
         });
         option.singleAxis.push({
-            left: 150,
+            left: 80,
             type: 'category',
             boundaryGap: false,
             data: hours,
@@ -229,9 +222,10 @@
             singleAxisIndex: idx,
             coordinateSystem: 'singleAxis',
             type: 'scatter',
+            left:'100',
             data: [],
             symbolSize: function (dataItem) {
-                return dataItem[1] * 1;
+                return dataItem[1] * 3;
             }
         });
     });

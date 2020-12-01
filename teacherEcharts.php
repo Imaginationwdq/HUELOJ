@@ -355,6 +355,23 @@ $studentLinks .= "]";
 
 // 获取基桑图的数据-----------end------------------
 
+// 获取平行坐标系的数据-----------start------------------
+
+$data3 = "[";
+for($i=0;$i<count($student1);$i++){
+    $submit1 = $student1[$i][1];
+    $submit2 = $student2[$i][1];
+    $submit3 = $student3[$i][1];
+    $submit4 = $student4[$i][1];
+    $data3 .= "[$submit1,$submit2,$submit3,$submit4]";
+    if ($i!=count($student1)-1){
+        $data3 .= ",";
+    }
+}
+$data3 .= "]";
+
+// 获取平行坐标系的数据-----------end------------------
+
 //第三个图-------------start-------------
 
 $sql = "SELECT date(in_date) md,count(1) c FROM (select * from solution order by solution_id desc limit 8000) solution  where result<13 group by md order by md desc limit 200";

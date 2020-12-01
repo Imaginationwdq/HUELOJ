@@ -58,23 +58,14 @@
             <div class="col-md-4" style="height: 400px" id="Scatter">3</div>
         </div>
         <div class="row">
-            <div class="col-md-4" style="background: #e7cf44;height: 400px">4</div>
+            <div class="col-md-4" style="height: 400px" id="main4"></div>
             <div class="col-md-4" style="height: 400px ;overflow-y: auto;">
                 <?php echo $student ?>
             </div>
             <div class="col-md-4" style="height: 400px">
 <!--                ----------------------------------------------------测试数据------------------------------------------------------------->
 <!--                --><?php
-                    echo json_encode($student1)."<br/>";
-                    echo json_encode($student2)."<br/>";
-                    echo json_encode($student3)."<br/>";
-                    echo json_encode($student4)."<br/>";
-                    echo $studentA."<br/>";
-                    echo $studentB."<br/>";
-                    echo $studentC."<br/>";
-                    echo $studentD."<br/>";
-                    echo json_encode($classAllstudent)."<br/>";
-//                    echo $userId."<br/>";
+                    echo $data3."<br/>";
 //                    echo $studentC."<br/>";
 //                    echo $studentD."<br/>";
 //                    echo $levelENum."<br/>";
@@ -86,10 +77,36 @@
 </body>
 </html>
 <script type="text/javascript">
+    //平行坐标系
+    var myChart3 = echarts.init(document.getElementById('main4'));
+    var option = {
+        parallelAxis: [
+            {dim: 0, name: 'Weekend1'},
+            {dim: 1, name: 'Weekend2'},
+            {dim: 2, name: 'Weekend3'},
+            {dim: 3, name: 'Weekend4'}
+            // {
+            //     dim: 3,
+            //     name: 'Score',
+            //     type: 'category',
+            //     data: ['Excellent', 'Good', 'OK', 'Bad']
+            // }
+        ],
+        series: {
+            type: 'parallel',
+            lineStyle: {
+                width: 2
+            },
+            data: <?php echo $data3 ?>
+        }
+    };
+
+    myChart3.setOption(option);
+</script>
+<script type="text/javascript">
     // 基桑图
     var myChart2 = echarts.init(document.getElementById('main2'));
-    // 指定图表的配置项和数据
-    var option = {
+    option = {
         tooltip: {
             trigger: "item"
         },
@@ -125,13 +142,11 @@
             links: <?php echo $studentLinks ?>
         }
     };
-
-    // 使用刚指定的配置项和数据显示图表。
     myChart2.setOption(option);
-
+</script>
+<script type="text/javascript">
     // 饼状图
     var myChart1 = echarts.init(document.getElementById('main1'));
-    // 指定图表的配置项和数据
     option = {
         tooltip: {
             trigger: 'item',
@@ -170,16 +185,15 @@
             }
         ]
     };
-    // 使用刚指定的配置项和数据显示图表。
     myChart1.setOption(option);
 
     window.onresize = function () {
         myChart1.resize();
         myChart2.resize();
+        myChart3.resize();
         ScatterChart.resize();
         // myChart2.resize();
     }
-
     // function clickClick(){
     //     console.log($('#t_class').find('option:selected').text());
     // }

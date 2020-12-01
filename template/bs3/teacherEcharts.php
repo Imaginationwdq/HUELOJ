@@ -58,7 +58,7 @@
             <div class="col-md-3" style="height: 300px" id="Scatter">3</div>
         </div>
         <div class="row">
-            <div class="col-md-3" style="height: 300px">4</div>
+            <div class="col-md-3" style="height: 300px" id="main4">4</div>
             <div class="col-md-5" style="height: 300px;">
                <div style="overflow-y: auto;overflow-x:auto;margin-top: 50px;height: 250px" > <?php echo $student ?> </div>
             </div>
@@ -98,6 +98,7 @@
 
     myChart3.setOption(option);
 </script>
+
 <script type="text/javascript">
     // 基桑图
     var myChart2 = echarts.init(document.getElementById('main2'));
@@ -144,11 +145,13 @@
 
     // 使用刚指定的配置项和数据显示图表。
     myChart2.setOption(option);
+</script>
 
+<script type="text/javascript">
     // 饼状图
     var myChart1 = echarts.init(document.getElementById('main1'));
     // 指定图表的配置项和数据
-    option = {
+    var option = {
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -195,13 +198,9 @@
         myChart2.resize();
         myChart3.resize();
         ScatterChart.resize();
-        // myChart2.resize();
     }
-
-    // function clickClick(){
-    //     console.log($('#t_class').find('option:selected').text());
-    // }
 </script>
+
 <script>
 
     var d1 = <?php echo json_encode($chart_data_all)?>;

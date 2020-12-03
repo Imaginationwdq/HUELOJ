@@ -443,6 +443,98 @@ $d = 0;
 
 
 //第三个图-------------end-------------
+
+//第四个图-------------start-----------
+//统计班级 = all里面每个人的Y的个数(不重复)
+$sql = "SELECT user_id ,count(user_id) as c from (select DISTINCT `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+$result =  mysql_query_cache( $sql );
+$Ynum = array();
+
+foreach ( $result as $row ) {
+    array_push( $Ynum, array( $row[ 'user_id' ],$row['c']) );
+}
+
+
+//统计班级 = all里面每个人的提交次数(不重复)
+$sql = "SELECT user_id ,count(user_id) as c from (select DISTINCT `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+$result =  mysql_query_cache( $sql );
+$Znum = array();
+
+foreach ( $result as $row ) {
+    array_push( $Znum, array( $row[ 'user_id' ], $row[ 'c' ] ) );
+}
+
+//统计班级 = all里面每个人的N次数(不重复)
+$sql = "SELECT user_id ,count(user_id) as c from (select DISTINCT `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result !=4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+$result =  mysql_query_cache( $sql );
+$Nnum = array();
+
+foreach ( $result as $row ) {
+    array_push( $Nnum, array( $row[ 'user_id' ], $row[ 'c' ] ) );
+}
+
+//统计班级 = all里面每个人的提交次数(重复)
+$sql = "SELECT user_id ,count(user_id) as c from (select `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+$result =  mysql_query_cache( $sql );
+$Znum1 = array();
+foreach ( $result as $row ) {
+    array_push( $Znum1, array( $row[ 'user_id' ], $row[ 'c' ] ) );
+}
+
+//统计班级 = all里面每个人的Y的个数(重复)
+$sql = "SELECT user_id ,count(user_id) as c from (select `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+$result =  mysql_query_cache( $sql );
+$Ynum1 = array();
+
+foreach ( $result as $row ) {
+    array_push( $Ynum1, array( $row[ 'user_id' ],$row['c']) );
+}
+
+$Enum = array();  //非重复 Y/Y+N
+$Knum = array();  //重复 Y/Y+N
+
+$Array1 = 0;
+$Array2 = 0;
+$Array3 = 0;
+$Array4 = 0;
+$Array5 = 0;
+
+for ($i = 0 ; $i<count($Ynum);$i++){
+    //echo $Ynum[$i][1]."<br>";
+    $Enum[$i][1] = $Ynum[$i][1] / $Znum[$i][1];
+    //echo $Enum[$i][1]."<br>";
+    $Knum[$i][1] = $Ynum1[$i][1] / $Znum1[$i][1];
+    if (($Enum[$i][1]*60+$Knum[$i][1]*40)>80.00){
+        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>";
+        $Array1++;
+    }else if (($Enum[$i][1]*60+$Knum[$i][1]*40)<=80.00&&($Enum[$i][1]*60+$Knum[$i][1]*40)>70.00){
+        // echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>";
+        $Array2++;
+    }else if (($Enum[$i][1]*60+$Knum[$i][1]*40)<=70.00&&($Enum[$i][1]*60+$Knum[$i][1]*40)>60.00){
+        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>";
+        $Array3++;
+    }else if (($Enum[$i][1]*60+$Knum[$i][1]*40)<=60.00&&($Enum[$i][1]*60+$Knum[$i][1]*40)>50.00){
+        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>" ;
+        $Array4++;
+    }else{
+        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>" ;
+        $Array5++;
+    }
+}
+
+$classStr = array();
+
+$name = '所有人分数分布';
+
+$Max = array();$Max[0] = $Array1;$Max[1] = $Array2;$Max[2] = $Array3;$Max[3] = $Array4;$Max[4] = $Array5;
+$max = max($Max);
+
+$name2 = '';
+$BArray1 = 0;$BArray2 = 0;$BArray3 = 0;$BArray4 = 0;$BArray5 = 0;
+
+
+//第四个图-------------end-------------
+
 /////////////////////////Template
 require("template/".$OJ_TEMPLATE."/teacherEcharts.php");
 /////////////////////////Common foot

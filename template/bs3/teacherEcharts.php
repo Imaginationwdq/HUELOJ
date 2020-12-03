@@ -58,7 +58,7 @@
             <div class="col-md-3" style="height: 300px" id="Scatter">3</div>
         </div>
         <div class="row">
-            <div class="col-md-3" style="height: 300px">4</div>
+            <div class="col-md-3" style="height: 300px" id="Rader">4</div>
             <div class="col-md-5" style="height: 300px;">
                <div style="overflow-y: auto;overflow-x:auto;margin-top: 50px;height: 250px" > <?php echo $student ?> </div>
             </div>
@@ -175,6 +175,7 @@
         myChart2.resize();
         ScatterChart.resize();
         // myChart2.resize();
+        RaderChart.resize();
     }
 
     // function clickClick(){
@@ -234,14 +235,13 @@
             left:'100',
             data: [],
             symbolSize: function (dataItem) {
-                return dataItem[1] * 3;
+                return dataItem[1] * 2;
             }
         });
     });
 
     echarts.util.each(data, function (dataItem) {
-        console.log(dataItem);
-        console.log(dataItem[0]);console.log(dataItem[1]);console.log(dataItem[2]);
+
         option.series[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
     });
 
@@ -249,5 +249,67 @@
 
 </script>
 <script>
+    var RaderChart = echarts.init(document.getElementById('Rader'));
+    option = {
+        tooltip: {},
+        legend: {
+
+        },
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    backgroundColor: '#999',
+                    borderRadius: 3,
+                    padding: [3, 5]
+                }
+            },
+            indicator: [
+                { name: '100.00-80.00+', max: <?php echo $max?>},
+                { name: '80.00-70.00+', max: <?php echo $max?>},
+                { name: '70.00-60.00+', max: <?php echo $max?>},
+                { name: '60.00-50.00+', max: <?php echo $max?>},
+                { name: '50.00-0.00+', max: <?php echo $max?>}
+            ],
+            radius: '50%',
+
+        },
+        series: [{
+            name: '预算 vs 开销（Budget vs spending）',
+            type: 'radar',
+            areaStyle: {normal: {}},
+            symbolSize: 5, // 拐点的大小
+            data: [
+                {
+
+                    value: [<?php echo $BArray1?>, <?php echo $BArray2?>, <?php echo $BArray3?>, <?php echo $BArray4?>, <?php echo $BArray5?>],
+                    name: '<?php echo $name2?>',
+                    label: {
+                        normal: {
+                            show: true,
+
+                        },
+                    },
+
+
+                },{
+                    value: [<?php echo $Array1?>, <?php echo $Array2?>, <?php echo $Array3?>, <?php echo $Array4?>, <?php echo $Array5?>],
+                    name: '<?php echo $name?>',
+                    label: {
+                        normal: {
+                            show: true,
+
+                        },
+                    },
+                },
+            ]
+        }]
+    };
+
+
+
+
+    RaderChart.setOption(option);
 
 </script>

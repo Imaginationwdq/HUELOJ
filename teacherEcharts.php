@@ -70,6 +70,7 @@ $d1['value'] = (int)$result[0][0];
 $d1['name'] = "正确";
 $s1[] = $d1;
 $s2[] = $d1;
+print_r($s1[0]['value']);
 //错误个数
 $sql = "select count(*) from solution s left join users u on s.user_id = u.user_id where u.bclass in ($t_class2) and s.result in (2,5,6,7,8,9,10,11,13)";
 $result = mysql_query_cache($sql);
@@ -534,6 +535,212 @@ $BArray1 = 0;$BArray2 = 0;$BArray3 = 0;$BArray4 = 0;$BArray5 = 0;
 
 
 //第四个图-------------end-------------
+
+//第五个图-------------start-----------
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray = array();
+$TArray = array();
+foreach ($result as $row){
+    array_push( $SArray, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums = 0;
+for($i = 0;$i<count($SArray);$i++){
+    $str = explode(' ',$SArray[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+         if (!isset($TArray[$str])){ //如果键名值不存在则初始化数组
+             $TArray[$str]=0;
+             $TArray[$str] = $TArray[$str] + $SArray[$i][2];//数量相加
+             $sums = $sums +  $SArray[$i][2] ;//数量
+         }else{ //如果键名存在
+             $TArray[$str] = $TArray[$str] + $SArray[$i][2] ;  //将数量相加
+             $sums = $sums +  $SArray[$i][2] ;//正确数量
+         }
+    }else{ //如果为空
+    }
+}
+print_r(array_keys($TArray));
+//答案错误
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =6 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray1 = array();
+$TArray1 = array();
+foreach ($result as $row){
+    array_push( $SArray1, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums1 = 0;
+for($i = 0;$i<count($SArray1);$i++){
+    $str = explode(' ',$SArray1[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+        if (!isset($TArray1[$str])){ //如果键名值不存在则初始化数组
+            $TArray1[$str]=0;
+            $TArray1[$str] = $TArray1[$str] + $SArray1[$i][2];//数量相加
+            $sums1 = $sums1 +  $SArray1[$i][2] ;//数量
+        }else{ //如果键名存在
+            $TArray1[$str] = $TArray1[$str] + $SArray1[$i][2] ;  //将数量相加
+            $sums1 = $sums1 +  $SArray1[$i][2] ;//数量
+        }
+    }else{ //如果为空
+    }
+}
+
+//时间超限
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =7 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray2 = array();
+$TArray2 = array();
+foreach ($result as $row){
+    array_push( $SArray2, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums2 = 0;
+for($i = 0;$i<count($SArray2);$i++){
+    $str = explode(' ',$SArray2[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+        if (!isset($TArray2[$str])){ //如果键名值不存在则初始化数组
+            $TArray2[$str]=0;
+            $TArray2[$str] = $TArray2[$str] + $SArray2[$i][2];//数量相加
+            $sums2 = $sums2 +  $SArray2[$i][2] ;//数量
+        }else{ //如果键名存在
+            $TArray2[$str] = $TArray2[$str] + $SArray2[$i][2] ;  //将数量相加
+            $sums2 = $sums2 +  $SArray2[$i][2] ;//数量
+        }
+    }else{ //如果为空
+    }
+}
+
+//输出超限
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =9 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray3 = array();
+$TArray3 = array();
+foreach ($result as $row){
+    array_push( $SArray3, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums3 = 0;
+for($i = 0;$i<count($SArray3);$i++){
+    $str = explode(' ',$SArray3[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+        if (!isset($TArray3[$str])){ //如果键名值不存在则初始化数组
+            $TArray3[$str]=0;
+            $TArray3[$str] = $TArray3[$str] + $SArray3[$i][2];//数量相加
+            $sums3 = $sums3 +  $SArray3[$i][2] ;//数量
+        }else{ //如果键名存在
+            $TArray3[$str] = $TArray3[$str] + $SArray3[$i][2] ;  //将数量相加
+            $sums3 = $sums3 +  $SArray3[$i][2] ;//数量
+        }
+    }else{ //如果为空
+    }
+}
+
+//运行错误
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =10 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray4 = array();
+$TArray4 = array();
+foreach ($result as $row){
+    array_push( $SArray4, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums4 = 0;
+for($i = 0;$i<count($SArray4);$i++){
+    $str = explode(' ',$SArray4[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+        if (!isset($TArray4[$str])){ //如果键名值不存在则初始化数组
+            $TArray4[$str]=0;
+            $TArray4[$str] = $TArray4[$str] + $SArray4[$i][2];//数量相加
+            $sums4 = $sums4 +  $SArray4[$i][2] ;//数量
+        }else{ //如果键名存在
+            $TArray4[$str] = $TArray4[$str] + $SArray4[$i][2] ;  //将数量相加
+            $sums4 = $sums4 +  $SArray4[$i][2] ;//数量
+        }
+    }else{ //如果为空
+    }
+}
+
+
+//编译错误
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =11 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray5 = array();
+$TArray5 = array();
+foreach ($result as $row){
+    array_push( $SArray5, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums5 = 0;
+for($i = 0;$i<count($SArray5);$i++){
+    $str = explode(' ',$SArray5[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+        if (!isset($TArray5[$str])){ //如果键名值不存在则初始化数组
+            $TArray5[$str]=0;
+            $TArray5[$str] = $TArray5[$str] + $SArray5[$i][2];//数量相加
+            $sums5 = $sums5 +  $SArray5[$i][2] ;//数量
+        }else{ //如果键名存在
+            $TArray5[$str] = $TArray5[$str] + $SArray5[$i][2] ;  //将数量相加
+            $sums5 = $sums5 +  $SArray5[$i][2] ;//数量
+        }
+    }else{ //如果为空
+    }
+}
+
+//内存超限
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =8 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray6 = array();
+$TArray6 = array();
+foreach ($result as $row){
+    array_push( $SArray6, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums6 = 0;
+for($i = 0;$i<count($SArray6);$i++){
+    $str = explode(' ',$SArray6[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+        if (!isset($TArray6[$str])){ //如果键名值不存在则初始化数组
+            $TArray6[$str]=0;
+            $TArray6[$str] = $TArray6[$str] + $SArray6[$i][2];//数量相加
+            $sums6 = $sums6 +  $SArray6[$i][2] ;//数量
+        }else{ //如果键名存在
+            $TArray6[$str] = $TArray6[$str] + $SArray6[$i][2] ;  //将数量相加
+            $sums6 = $sums6 +  $SArray6[$i][2] ;//数量
+        }
+    }else{ //如果为空
+    }
+}
+
+//格式错误
+$sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =5 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+$result = mysql_query_cache($sql);
+$SArray7 = array();
+$TArray7 = array();
+foreach ($result as $row){
+    array_push( $SArray7, array( $row[ 'problem_id' ], $row[ 'source' ],$row[ 'c' ] ) );
+}
+$sums7 = 0;
+for($i = 0;$i<count($SArray7);$i++){
+    $str = explode(' ',$SArray5[$i][1])[1];
+    //echo $SArray[$i][0].$str."<br>";
+    if (!empty($str)){ //如果不为空
+        if (!isset($TArray7[$str])){ //如果键名值不存在则初始化数组
+            $TArray7[$str]=0;
+            $TArray7[$str] = $TArray7[$str] + $SArray7[$i][2];//数量相加
+            $sums7 = $sums7 +  $SArray7[$i][2] ;//数量
+        }else{ //如果键名存在
+            $TArray7[$str] = $TArray7[$str] + $SArray7[$i][2] ;  //将数量相加
+            $sums7 = $sums7 +  $SArray7[$i][2] ;//数量
+        }
+    }else{ //如果为空
+    }
+}
+
+
+//第五个图-------------end-------------
+
+
 
 /////////////////////////Template
 require("template/".$OJ_TEMPLATE."/teacherEcharts.php");

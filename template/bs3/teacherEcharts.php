@@ -176,6 +176,7 @@
         ScatterChart.resize();
         // myChart2.resize();
         RaderChart.resize();
+        FinChart.resize();
     }
 
     // function clickClick(){
@@ -250,6 +251,7 @@
 </script>
 <script>
     var RaderChart = echarts.init(document.getElementById('Rader'));
+
     option = {
         tooltip: {},
         legend: {
@@ -276,7 +278,7 @@
 
         },
         series: [{
-            name: '预算 vs 开销（Budget vs spending）',
+            name: '分数分布',
             type: 'radar',
             areaStyle: {normal: {}},
             symbolSize: 5, // 拐点的大小
@@ -307,9 +309,312 @@
         }]
     };
 
-
-
-
     RaderChart.setOption(option);
+
+</script>
+<script>
+
+    var FinChart = echarts.init(document.getElementById('Finance'));
+    var names = <?php echo json_encode(array_keys($TArray)) ?>;
+    console.log(names);
+
+    option = {
+
+
+
+        baseOption: {
+            timeline: {
+                show:false
+            },
+            tooltip: {
+                show:false
+            },
+            legend: {
+                left: 'center',
+                show:false,
+                itemGap:5
+            },
+            calculable : true,
+            grid: {
+                left: 80,
+                top:80,
+                bottom:20,
+                tooltip: {
+                    show:false,
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow',
+
+                        label: {
+                            show: true,
+                            formatter: function (params) {
+                                return params.value.replace('\n', '');
+                            }
+                        }
+                    }
+                }
+            },
+            xAxis: [
+                {
+                    'type':'category',
+                    'axisLabel':{'interval':0,'fontSize':10},
+                    'data':[
+                        '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                    ],
+                    splitLine: {show: false},
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '数量'
+                }
+            ],
+            series: [
+                {name: '数量', type: 'bar'},
+                {
+                    name: '问题类型占比',
+                    type: 'pie',
+                    center: ['75%', '35%'],
+                    radius: '28%',
+                    z: 100
+                }
+            ]
+        },
+
+
+
+        options: [
+            {
+
+                series: [
+                    {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                    {data: [
+                            <?php
+                            for ($i=0;$i<count($TArray);$i++){
+                            $strs = array_keys($TArray)[$i];
+                            $num = $TArray[$strs];
+                            ?>
+                            {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                            <?php } ?>
+
+                        ]}
+                ]
+            },
+
+        ],
+
+
+    };
+
+    FinChart.on('click',function(params){  //点击事件
+        var name = params.name;
+        var seriesType = params.seriesType;
+        console.log(name);
+        console.log(seriesType);
+        for (var i=0;i<names.length;i++){
+            if (names[i]==name&&seriesType=='pie'){
+             $.ajax({
+                 type: 'POST',
+                 url: '/HUELOJ/teacherEcharts.php',
+                 data: {val: name.value},
+                 success: function(data){
+                 // msg: php返回内容
+                     /* alert(修改成功); */
+
+
+                     console.log("成功");
+                 },
+                 error:function(data){
+                     console.log("失败");
+                     // 提交失败
+                 }
+             })
+
+                option = {
+                    baseOption: {
+                        timeline: {
+                            show:false
+                        },
+                        tooltip: {
+                            show:false
+                        },
+                        legend: {
+                            left: 'center',
+                            show:false,
+                            itemGap:5
+                        },
+                        calculable : true,
+                        grid: {
+                            left: 80,
+                            top:80,
+                            bottom:20,
+                            tooltip: {
+                                show:false,
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow',
+
+                                    label: {
+                                        show: true,
+                                        formatter: function (params) {
+                                            return params.value.replace('\n', '');
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        xAxis: [
+                            {
+                                'type':'category',
+                                'axisLabel':{'interval':0,'fontSize':10},
+                                'data':[
+                                    '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                                ],
+                                splitLine: {show: false},
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '数量'
+                            }
+                        ],
+                        series: [
+                            {name: '数量', type: 'bar'},
+                            {
+                                name: '问题类型占比',
+                                type: 'pie',
+                                center: ['75%', '35%'],
+                                radius: '28%',
+                                z: 100
+                            }
+                        ]
+                    },
+
+
+
+                    options: [
+                        {
+
+                            series: [
+                                {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                                {data: [
+                                        <?php
+                                        for ($i=0;$i<count($TArray);$i++){
+                                        $strs = array_keys($TArray)[$i];
+                                        $num = $TArray[$strs];
+                                        ?>
+                                        {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                                        <?php } ?>
+
+                                    ]}
+                            ]
+                        },
+
+                    ],
+
+
+                };
+            }else {
+                option = {
+
+
+
+                    baseOption: {
+                        timeline: {
+                            show:false
+                        },
+                        tooltip: {
+                            show:false
+                        },
+                        legend: {
+                            left: 'center',
+                            show:false,
+                            itemGap:5
+                        },
+                        calculable : true,
+                        grid: {
+                            left: 80,
+                            top:80,
+                            bottom:20,
+                            tooltip: {
+                                show:false,
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow',
+
+                                    label: {
+                                        show: true,
+                                        formatter: function (params) {
+                                            return params.value.replace('\n', '');
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        xAxis: [
+                            {
+                                'type':'category',
+                                'axisLabel':{'interval':0,'fontSize':10},
+                                'data':[
+                                    '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                                ],
+                                splitLine: {show: false},
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '数量'
+                            }
+                        ],
+                        series: [
+                            {name: '数量', type: 'bar'},
+                            {
+                                name: '问题类型占比',
+                                type: 'pie',
+                                center: ['75%', '35%'],
+                                radius: '28%',
+                                z: 100
+                            }
+                        ]
+                    },
+
+
+
+                    options: [
+                        {
+
+                            series: [
+                                {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                                {data: [
+                                        <?php
+                                        for ($i=0;$i<count($TArray);$i++){
+                                        $strs = array_keys($TArray)[$i];
+                                        $num = $TArray[$strs];
+                                        ?>
+                                        {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                                        <?php } ?>
+
+                                    ]}
+                            ]
+                        },
+
+                    ],
+
+
+                };
+            }
+        }
+
+    });
+
+
+
+
+    FinChart.setOption(option);
+
+
 
 </script>

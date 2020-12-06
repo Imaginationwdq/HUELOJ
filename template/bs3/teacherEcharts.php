@@ -410,26 +410,12 @@
     FinChart.on('click',function(params){  //点击事件
         var name = params.name;
         var seriesType = params.seriesType;
+
         console.log(name);
         console.log(seriesType);
         for (var i=0;i<names.length;i++){
             if (names[i]==name&&seriesType=='pie'){
-             $.ajax({
-                 type: 'POST',
-                 url: '/HUELOJ/teacherEcharts.php',
-                 data: {val: name.value},
-                 success: function(data){
-                 // msg: php返回内容
-                     /* alert(修改成功); */
-
-
-                     console.log("成功");
-                 },
-                 error:function(data){
-                     console.log("失败");
-                     // 提交失败
-                 }
-             })
+                window.location.href="/HUELOJ/teacherEcharts.php?data="+name;
 
                 option = {
                     baseOption: {

@@ -10,7 +10,7 @@ require_once('./include/setlang.php');
 $view_title= "Welcome To Online Judge";
 $result=false;
 ///////////////////////////MAIN
-$t_class = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp班级&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+$t_class = '班级';
 $sid=$_SESSION[$OJ_NAME.'_'.'user_id'];
 //获取班级选项
 $sql = "select tclass from users where user_id ='$sid'";
@@ -446,92 +446,183 @@ $d = 0;
 //第三个图-------------end-------------
 
 //第四个图-------------start-----------
-//统计班级 = all里面每个人的Y的个数(不重复)
-$sql = "SELECT user_id ,count(user_id) as c from (select DISTINCT `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+
+//统计一个班的人数
+$sql = "SELECT count(*) as c from users where defunct='N' and bclass in ($t_class2)";
+$result =  mysql_query_cache( $sql );
+$stu_num =  $result[0][0];
+
+//统计班级 = all里面所有人的Y的个数(不重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result = 4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
 $result =  mysql_query_cache( $sql );
 $Ynum = array();
 
 foreach ( $result as $row ) {
-    array_push( $Ynum, array( $row[ 'user_id' ],$row['c']) );
+    array_push( $Ynum, array( $row[ 'user_id' ],$row['source'],$row['c']) );
 }
 
 
-//统计班级 = all里面每个人的提交次数(不重复)
-$sql = "SELECT user_id ,count(user_id) as c from (select DISTINCT `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+//统计班级 = all里面所有人的提交次数(不重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id	";
 $result =  mysql_query_cache( $sql );
 $Znum = array();
 
 foreach ( $result as $row ) {
-    array_push( $Znum, array( $row[ 'user_id' ], $row[ 'c' ] ) );
+    array_push( $Znum, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
 }
 
 //统计班级 = all里面每个人的N次数(不重复)
-$sql = "SELECT user_id ,count(user_id) as c from (select DISTINCT `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result !=4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result != 4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
 $result =  mysql_query_cache( $sql );
 $Nnum = array();
 
 foreach ( $result as $row ) {
-    array_push( $Nnum, array( $row[ 'user_id' ], $row[ 'c' ] ) );
+    array_push( $Nnum, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
 }
 
-//统计班级 = all里面每个人的提交次数(重复)
-$sql = "SELECT user_id ,count(user_id) as c from (select `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+//统计班级 = all里面所有人的提交次数(重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id	";
 $result =  mysql_query_cache( $sql );
 $Znum1 = array();
 foreach ( $result as $row ) {
-    array_push( $Znum1, array( $row[ 'user_id' ], $row[ 'c' ] ) );
+    array_push( $Znum1, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
 }
 
-//统计班级 = all里面每个人的Y的个数(重复)
-$sql = "SELECT user_id ,count(user_id) as c from (select `problem`.problem_id, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY user_id";
+//统计班级 = all里面所有人的Y的个数(重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
 $result =  mysql_query_cache( $sql );
 $Ynum1 = array();
 
 foreach ( $result as $row ) {
-    array_push( $Ynum1, array( $row[ 'user_id' ],$row['c']) );
+    array_push( $Ynum1, array( $row[ 'user_id' ],$row['source'],$row['c']) );
 }
 
 $Enum = array();  //非重复 Y/Y+N
 $Knum = array();  //重复 Y/Y+N
 
-$Array1 = 0;
-$Array2 = 0;
-$Array3 = 0;
-$Array4 = 0;
-$Array5 = 0;
+$Arrays = array();
 
+$Arraykey = array();
 for ($i = 0 ; $i<count($Ynum);$i++){
-    //echo $Ynum[$i][1]."<br>";
-    $Enum[$i][1] = $Ynum[$i][1] / $Znum[$i][1];
-    //echo $Enum[$i][1]."<br>";
-    $Knum[$i][1] = $Ynum1[$i][1] / $Znum1[$i][1];
-    if (($Enum[$i][1]*60+$Knum[$i][1]*40)>80.00){
-        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>";
-        $Array1++;
-    }else if (($Enum[$i][1]*60+$Knum[$i][1]*40)<=80.00&&($Enum[$i][1]*60+$Knum[$i][1]*40)>70.00){
-        // echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>";
-        $Array2++;
-    }else if (($Enum[$i][1]*60+$Knum[$i][1]*40)<=70.00&&($Enum[$i][1]*60+$Knum[$i][1]*40)>60.00){
-        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>";
-        $Array3++;
-    }else if (($Enum[$i][1]*60+$Knum[$i][1]*40)<=60.00&&($Enum[$i][1]*60+$Knum[$i][1]*40)>50.00){
-        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>" ;
-        $Array4++;
-    }else{
-        //echo $Enum[$i][1]*60+$Knum[$i][1]*40   . "<br>" ;
-        $Array5++;
+    $strl = explode(' ', $Ynum[$i][1])[1];
+    $title = array('分支','循环','数组','函数','字符串','指针');
+    $Enum[$i][1] = $Ynum[$i][2] / $Znum[$i][2];
+
+    $Knum[$i][1] = $Ynum1[$i][2] / $Znum1[$i][2];
+
+    if (!empty($strl)){ //如果 $str不为空
+
+
+        if (in_array($strl,$title)&&!isset($Arrays[$strl])){  //如果题目标签在数组中且键名不存在
+
+            $Arrays[$strl] = 0;//初始化
+            $Arraykey[$strl] = 0;
+            $Arrays[$strl] = $Arrays[$strl]+($Enum[$i][1]*70+$Knum[$i][1]*30);
+            $Arraykey[$strl] = $Arraykey[$strl] +1;
+    }else if (in_array($strl,$title)&&isset($Arrays[$strl])){ //如果题目标签在数组中且键名存在
+
+            $Arrays[$strl] = $Arrays[$strl]+($Enum[$i][1]*70+$Knum[$i][1]*30);
+            $Arraykey[$strl] = $Arraykey[$strl] +1;
+    }
+
     }
 }
 
-$classStr = array();
+for ($i=0;$i<count($Arrays);$i++) {
+    $strs = array_keys($Arrays)[$i];
+    $Arrays[$strs] = round($Arrays[$strs] / $Arraykey[$strs],2);
+}
 
-$name = '所有人分数分布';
 
-$Max = array();$Max[0] = $Array1;$Max[1] = $Array2;$Max[2] = $Array3;$Max[3] = $Array4;$Max[4] = $Array5;
-$max = max($Max);
+$name = '所有人各单元分数';
+$name2 = $str[0].'班所有人各单元分数';
 
-$name2 = '';
-$BArray1 = 0;$BArray2 = 0;$BArray3 = 0;$BArray4 = 0;$BArray5 = 0;
+//统计一个班的人数
+$sql = "SELECT count(*) as c from users where defunct='N' and bclass in ($str[0])";
+$result =  mysql_query_cache( $sql );
+$stu_num1 =  $result[0][0];
+
+//统计班级 = all里面所有人的Y的个数(不重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result = 4 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id";
+$result =  mysql_query_cache( $sql );
+$Ynum3 = array();
+
+foreach ( $result as $row ) {
+    array_push( $Ynum3, array( $row[ 'user_id' ],$row['source'],$row['c']) );
+}
+
+
+//统计班级 = all里面所有人的提交次数(不重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id	";
+$result =  mysql_query_cache( $sql );
+$Znum3 = array();
+
+foreach ( $result as $row ) {
+    array_push( $Znum3, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
+}
+
+//统计班级 = all里面每个人的N次数(不重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result != 4 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id";
+$result =  mysql_query_cache( $sql );
+$Nnum3 = array();
+
+foreach ( $result as $row ) {
+    array_push( $Nnum3, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
+}
+
+//统计班级 = all里面所有人的提交次数(重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id	";
+$result =  mysql_query_cache( $sql );
+$Znum4 = array();
+foreach ( $result as $row ) {
+    array_push( $Znum4, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
+}
+
+//统计班级 = all里面所有人的Y的个数(重复)
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id	";
+$result =  mysql_query_cache( $sql );
+$Ynum4 = array();
+
+foreach ( $result as $row ) {
+    array_push( $Ynum4, array( $row[ 'user_id' ],$row['source'],$row['c']) );
+}
+
+$Enum = array();  //非重复 Y/Y+N
+$Knum = array();  //重复 Y/Y+N
+
+$Arrays2 = array();
+
+$Arraykey2 = array();
+for ($i = 0 ; $i<count($Ynum3);$i++){
+    $strl2 = explode(' ', $Ynum3[$i][1])[1];
+    $title2 = array('分支','循环','数组','函数','字符串','指针');
+    $Enum[$i][1] = $Ynum3[$i][2] / $Znum3[$i][2];
+
+    $Knum[$i][1] = $Ynum4[$i][2] / $Znum4[$i][2];
+
+    if (!empty($strl2)){ //如果 $str不为空
+
+
+        if (in_array($strl2,$title2)&&!isset($Arrays2[$strl2])){  //如果题目标签在数组中且键名不存在
+
+            $Arrays2[$strl2] = 0;//初始化
+            $Arraykey2[$strl2] = 0;
+            $Arrays2[$strl2] = $Arrays2[$strl2]+($Enum[$i][1]*70+$Knum[$i][1]*30);
+            $Arraykey2[$strl2] = $Arraykey[$strl2] +1;
+        }else if (in_array($strl2,$title2)&&isset($Arrays2[$strl2])){ //如果题目标签在数组中且键名存在
+
+            $Arrays2[$strl2] = $Arrays2[$strl2]+($Enum[$i][1]*70+$Knum[$i][1]*30);
+            $Arraykey2[$strl2] = $Arraykey2[$strl2] +1;
+        }
+
+    }
+}
+
+for ($i=0;$i<count($Arrays2);$i++) {
+    $strs2 = array_keys($Arrays2)[$i];
+    $Arrays2[$strs2] = round($Arrays2[$strs2] / $Arraykey2[$strs2],2);
+}
+
 
 
 //第四个图-------------end-------------
@@ -742,8 +833,8 @@ if(empty($Name)) {
         } else { //如果为空
         }
     }
-}else{
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+}else{  //如果非空则获取该值所对应的数据信息
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray = array();
     $TArray = array();
@@ -769,7 +860,7 @@ if(empty($Name)) {
     }
 
 //答案错误
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =6 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =6 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray1 = array();
     $TArray1 = array();
@@ -794,7 +885,7 @@ if(empty($Name)) {
     }
 
 //时间超限
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =7 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =7 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray2 = array();
     $TArray2 = array();
@@ -819,7 +910,7 @@ if(empty($Name)) {
     }
 
 //输出超限
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =9 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =9 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray3 = array();
     $TArray3 = array();
@@ -844,7 +935,7 @@ if(empty($Name)) {
     }
 
 //运行错误
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =10 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =10 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray4 = array();
     $TArray4 = array();
@@ -870,7 +961,7 @@ if(empty($Name)) {
 
 
 //编译错误
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =11 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =11 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray5 = array();
     $TArray5 = array();
@@ -895,7 +986,7 @@ if(empty($Name)) {
     }
 
 //内存超限
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =8 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =8 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray6 = array();
     $TArray6 = array();
@@ -920,7 +1011,7 @@ if(empty($Name)) {
     }
 
 //格式错误
-    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =5 and users.defunct = 'N' and bclass in ($t_class2)) as datas GROUP BY problem_id";
+    $sql = "SELECT problem_id,source,count(problem_id)as c from (select `problem`.problem_id,`solution`.user_id,source,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =5 and users.defunct = 'N' and bclass in ($t_class2)) as datas where source like '%$Name%' GROUP BY problem_id";
     $result = mysql_query_cache($sql);
     $SArray7 = array();
     $TArray7 = array();

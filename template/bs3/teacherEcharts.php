@@ -30,40 +30,46 @@
 <div class="container">
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-10"></div>
-            <div class="dropdown col-md-1">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <?php echo $t_class ?>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <?php echo $option_class ?>
-                </ul>
-            </div>
-            <div class="col-md-1"></div>
+    <div class="row">
+        <div class="col-md-10"></div>
+
+        <div class="dropdown col-md-1">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <?php echo $t_class ?>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <?php echo $option_class ?>
+            </ul>
         </div>
+        <div class="col-md-1"></div>
+
+    </div>
+
+    <div class="jumbotron">
+
+
+
         <div class="row">
-            <div class="col-md-2" style="height: 300px" id="main1"></div>
-            <div class="col-md-7" style="height: 300px">
+            <div class="col-md-2" style="height: 350px;border: 1px solid" id="main1"></div>
+            <div class="col-md-7" style="height: 350px;border: 1px solid">
                 <div style="height: 320px;" id="main2"></div>
                 <div class="row" style="">
-                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest1?></div>
-                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest2?></div>
-                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest3?></div>
-                    <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest4?></div>
+                    <div class="col-md-3" style="padding-left: 50px;"><?php echo $datetest1?></div>
+                    <div class="col-md-3" style="padding-left: 60px;"><?php echo $datetest2?></div>
+                    <div class="col-md-3" style="padding-left: 90px;"><?php echo $datetest3?></div>
+                    <div class="col-md-3" style="padding-left: 100px;"><?php echo $datetest4?></div>
                 </div>
             </div>
-            <div class="col-md-3" style="height: 300px" id="Scatter">3</div>
+            <div class="col-md-3" style="height: 350px;border: 1px solid" id="Scatter" >3</div>
         </div>
         <div class="row">
-            <div class="col-md-3" style="height: 300px" id="Rader">4</div>
-            <div class="col-md-5" style="height: 300px;">
-               <div style="overflow-y: auto;overflow-x:auto;margin-top: 50px;height: 250px" > <?php echo $student ?> </div>
+            <div class="col-md-3" style="height: 280px;border: 1px solid" id="Rader">4</div>
+            <div class="col-md-5" style="height: 280px;">
+               <div style="overflow-y: auto;overflow-x:auto;margin-top:25px;height: 250px;border: 1px solid" > <?php echo $student ?> </div>
             </div>
-            <div class="col-md-4" style="height: 300px" id="Finance">
-            <div class="col-md-4" style="height: 400px">
+            <div class="col-md-4" style="height: 280px;border: 1px solid" id="Finance">
+
 <!--                ----------------------------------------------------测试数据------------------------------------------------------------->
 <!--                --><?php
 //                    echo $userId."<br/>";
@@ -90,7 +96,7 @@
         series: {
             type: 'sankey',
             left: 'center',
-            width:'80%',
+            width:'90%',
             layout: 'none',
                 lineStyle: {
                 color: "source",
@@ -140,6 +146,7 @@
                 type: 'pie',
                 selectedMode: 'single',
                 radius: [0, '60%'],
+                left:'5',
                 label: {
                     position: 'inner'
                 },
@@ -153,6 +160,7 @@
                 name: '详细状况',
                 type: 'pie',
                 radius: ['75%', '100%'],
+                left:'5',
                 label: {
                     show: false,
                     formatter: '{b|{b}}',
@@ -214,16 +222,17 @@
                 fontStyle:'oblique'
             },
 
-            top: (idx + 0.2) * 100 / 7 + '%',
+            top: (idx + 0.42) * 100 / 7 + '%',
             text: day,
 
         });
         option.singleAxis.push({
+
             left: 80,
             type: 'category',
             boundaryGap: false,
             data: hours,
-            top: (idx * 100 / 7 + 5) + '%',
+            top: (idx * 100 / 7 + 8) + '%',
             height: (100 / 7 - 15) + '%',
             axisLabel: {
                 interval: 2
@@ -253,9 +262,11 @@
     var RaderChart = echarts.init(document.getElementById('Rader'));
 
     option = {
-        tooltip: {},
-        legend: {
+        tooltip: {
 
+        },
+        legend: {
+           bottom:'5px'
         },
         radar: {
             // shape: 'circle',
@@ -268,42 +279,58 @@
                 }
             },
             indicator: [
-                { name: '100.00-80.00+', max: <?php echo $max?>},
-                { name: '80.00-70.00+', max: <?php echo $max?>},
-                { name: '70.00-60.00+', max: <?php echo $max?>},
-                { name: '60.00-50.00+', max: <?php echo $max?>},
-                { name: '50.00-0.00+', max: <?php echo $max?>}
+                <?php
+                for ($i=0;$i<count($Arrays);$i++){
+                $strname = array_keys($Arrays)[$i];
+                $num = $Arrays[$strname];
+                ?>
+                {name: '<?php echo $strname ?>', max: 100},
+                <?php } ?>
             ],
-            radius: '50%',
+            radius: '55%',
 
         },
         series: [{
             name: '分数分布',
             type: 'radar',
             areaStyle: {normal: {}},
-            symbolSize: 5, // 拐点的大小
+            symbolSize: 1, // 拐点的大小
             data: [
-                {
 
-                    value: [<?php echo $BArray1?>, <?php echo $BArray2?>, <?php echo $BArray3?>, <?php echo $BArray4?>, <?php echo $BArray5?>],
+                {
+                    value: [<?php
+                        for ($i=0;$i<count($Arrays2);$i++){
+                        $strname2 = array_keys($Arrays2)[$i];
+                        $num2 = $Arrays2[$strname2];
+                        ?>
+                        <?php echo $num2 ?>,
+                        <?php } ?>],
                     name: '<?php echo $name2?>',
                     label: {
                         normal: {
-                            show: true,
+                            show: false,
 
                         },
                     },
+                },
+                {
 
-
-                },{
-                    value: [<?php echo $Array1?>, <?php echo $Array2?>, <?php echo $Array3?>, <?php echo $Array4?>, <?php echo $Array5?>],
+                    value: [<?php
+                        for ($i=0;$i<count($Arrays);$i++){
+                        $strname = array_keys($Arrays)[$i];
+                        $num = $Arrays[$strname];
+                        ?>
+                        <?php echo $num ?>,
+                        <?php } ?>],
                     name: '<?php echo $name?>',
                     label: {
                         normal: {
-                            show: true,
+                            show: false,
 
                         },
                     },
+
+
                 },
             ]
         }]
@@ -316,7 +343,7 @@
 
     var FinChart = echarts.init(document.getElementById('Finance'));
     var names = <?php echo json_encode(array_keys($TArray)) ?>;
-    console.log(names);
+
 
     option = {
 
@@ -344,7 +371,6 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow',
-
                         label: {
                             show: true,
                             formatter: function (params) {
@@ -371,13 +397,15 @@
                 }
             ],
             series: [
-                {name: '数量', type: 'bar'},
+                {name: '数量', type: 'bar',bottom:'50'},
                 {
                     name: '问题类型占比',
                     type: 'pie',
                     center: ['75%', '35%'],
                     radius: '28%',
-                    z: 100
+                    z: 100,
+                    top:'20'
+
                 }
             ]
         },
@@ -410,14 +438,117 @@
     FinChart.on('click',function(params){  //点击事件
         var name = params.name;
         var seriesType = params.seriesType;
-
-        console.log(name);
-        console.log(seriesType);
+        var tclass1 = '<?php echo $t_class ?>';
+        var tclass2 = [];
+        <?php $sql = "select tclass from users where user_id ='$sid'";
+            $result = mysql_query_cache($sql);
+            $strclass = explode(',',$result[0][0]);
+            for($i=0;$i<count($strclass);$i++){
+                ?>
+                var arr = '<?php echo $strclass[$i] ?>';
+                tclass2.push(arr);
+            <?php } ?>
+        var uid = '<?php echo $userId ?>';
+        console.log(tclass1);
+        console.log(tclass2);
+        console.log(tclass2.indexOf(tclass1));
+        console.log(uid);
         for (var i=0;i<names.length;i++){
-            if (names[i]==name&&seriesType=='pie'){
-                window.location.href="/HUELOJ/teacherEcharts.php?data="+name;
+            if (names[i]==name&&seriesType=='pie'&&tclass2.indexOf(tclass1)==-1&&uid.length==0){  //如果name存在且是饼图上的name且此时为全部人则
 
+                window.location.href="/HUELOJ/teacherEcharts.php?data="+name;
                 option = {
+                    baseOption: {
+                        timeline: {
+                            show:false
+                        },
+                        tooltip: {
+                            show:false
+                        },
+                        legend: {
+                            left: 'center',
+                            show:false,
+                            itemGap:5
+                        },
+                        calculable : true,
+                        grid: {
+                            left: 80,
+                            top:80,
+                            bottom:20,
+                            tooltip: {
+                                show:false,
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow',
+
+                                    label: {
+                                        show: true,
+                                        formatter: function (params) {
+                                            return params.value.replace('\n', '');
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        xAxis: [
+                            {
+                                'type':'category',
+                                'axisLabel':{'interval':0,'fontSize':10},
+                                'data':[
+                                    '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                                ],
+                                splitLine: {show: false},
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '数量'
+                            }
+                        ],
+                        series: [
+                            {name: '数量', type: 'bar'},
+                            {
+                                name: '问题类型占比',
+                                type: 'pie',
+                                center: ['75%', '35%'],
+                                label:{show:false},
+                                radius: '28%',
+                                z: 100
+                            }
+                        ]
+                    },
+
+
+
+                    options: [
+                        {
+
+                            series: [
+                                {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                                {data: [
+                                        <?php
+                                        for ($i=0;$i<count($TArray);$i++){
+                                        $strs = array_keys($TArray)[$i];
+                                        $num = $TArray[$strs];
+                                        ?>
+                                        {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                                        <?php } ?>
+
+                                    ]}
+                            ]
+                        },
+
+                    ],
+
+
+                };
+            }else if (names[i]==name&&seriesType=='pie'&&tclass2.indexOf(tclass1)!=-1&&uid.length==0){
+                window.location.href="/HUELOJ/teacherEcharts2.php?data="+name+"&t_class="+tclass1;
+                option = {
+
+
+
                     baseOption: {
                         timeline: {
                             show:false
@@ -502,7 +633,8 @@
 
 
                 };
-            }else {
+            }else if (names[i]==name&&seriesType=='pie'&&uid.length!=0){
+                window.location.href="/HUELOJ/teacherEcharts3.php?data="+name+"&user_id="+uid;
                 option = {
 
 

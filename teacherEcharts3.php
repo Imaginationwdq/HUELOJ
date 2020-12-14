@@ -443,7 +443,7 @@ foreach ( $result as $row ) {
 $Enum = array();  //非重复 Y/Y+N
 $Knum = array();  //重复 Y/Y+N
 
-$Arrays = array();
+$Arrays = array('分支'=>0,'循环'=>0,'数组'=>0,'函数'=>0,'字符串'=>0,'指针'=>0);
 
 $Arraykey = array();
 for ($i = 0 ; $i<count($Ynum);$i++){
@@ -472,8 +472,14 @@ for ($i = 0 ; $i<count($Ynum);$i++){
 }
 
 for ($i=0;$i<count($Arrays);$i++) {
-    $strs = array_keys($Arrays)[$i];
-    $Arrays[$strs] = round($Arrays[$strs] / $Arraykey[$strs],2);
+    if (isset(array_keys($Arrays)[$i])){
+        $strs = array_keys($Arrays)[$i];
+        if (isset($Arraykey[$strs])){
+            $Arrays[$strs] = round($Arrays[$strs] / $Arraykey[$strs],2);
+        }
+
+    }
+
 }
 
 $sql = "select nick from users where user_id = $userId";
@@ -534,7 +540,7 @@ foreach ( $result as $row ) {
 $Enum = array();  //非重复 Y/Y+N
 $Knum = array();  //重复 Y/Y+N
 
-$Arrays2 = array();
+$Arrays2 = array('分支'=>0,'循环'=>0,'数组'=>0,'函数'=>0,'字符串'=>0,'指针'=>0);
 
 $Arraykey = array();
 
@@ -564,8 +570,15 @@ for ($i = 0 ; $i<count($Ynum3);$i++){
 }
 
 for ($i=0;$i<count($Arrays2);$i++) {
-    $strs2 = array_keys($Arrays2)[$i];
-    $Arrays2[$strs2] = round($Arrays2[$strs2] / $Arraykey[$strs2],2);
+    if (isset(array_keys($Arrays2)[$i])){
+        $strs2 = array_keys($Arrays2)[$i];
+        if (isset($Arraykey[$strs2])){
+            $Arrays2[$strs2] = round($Arrays2[$strs2] / $Arraykey[$strs2],2);
+        }
+
+    }
+
+
 }
 
 

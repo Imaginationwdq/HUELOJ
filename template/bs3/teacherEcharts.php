@@ -297,22 +297,7 @@
             symbolSize: 1, // 拐点的大小
             data: [
 
-                {
-                    value: [<?php
-                        for ($i=0;$i<count($Arrays2);$i++){
-                        $strname2 = array_keys($Arrays2)[$i];
-                        $num2 = $Arrays2[$strname2];
-                        ?>
-                        <?php echo $num2 ?>,
-                        <?php } ?>],
-                    name: '<?php echo $name2?>',
-                    label: {
-                        normal: {
-                            show: false,
 
-                        },
-                    },
-                },
                 {
 
                     value: [<?php
@@ -331,6 +316,21 @@
                     },
 
 
+                },{
+                    value: [<?php
+                        for ($i=0;$i<count($Arrays2);$i++){
+                        $strname2 = array_keys($Arrays2)[$i];
+                        $num2 = $Arrays2[$strname2];
+                        ?>
+                        <?php echo $num2 ?>,
+                        <?php } ?>],
+                    name: '<?php echo $name2?>',
+                    label: {
+                        normal: {
+                            show: false,
+
+                        },
+                    },
                 },
             ]
         }]

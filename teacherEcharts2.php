@@ -502,7 +502,7 @@ foreach ( $result as $row ) {
 $Enum = array();  //非重复 Y/Y+N
 $Knum = array();  //重复 Y/Y+N
 
-$Arrays = array();
+$Arrays = array('分支'=>0,'循环'=>0,'数组'=>0,'函数'=>0,'字符串'=>0,'指针'=>0);
 
 $Arraykey = array();
 for ($i = 0 ; $i<count($Ynum);$i++){
@@ -520,7 +520,7 @@ for ($i = 0 ; $i<count($Ynum);$i++){
             $Arrays[$strl] = 0;//初始化
             $Arraykey[$strl] = 0;
             $Arrays[$strl] = $Arrays[$strl]+($Enum[$i][1]*70+$Knum[$i][1]*30);
-            $Arraykey[$strl] = $Arraykey[$strs] +1 ;
+            $Arraykey[$strl] = $Arraykey[$strl] +1 ;
         }else if (in_array($strl,$title)&&isset($Arrays[$strl])){ //如果题目标签在数组中且键名存在
 
             $Arrays[$strl] = $Arrays[$strl]+($Enum[$i][1]*70+$Knum[$i][1]*30);
@@ -531,8 +531,14 @@ for ($i = 0 ; $i<count($Ynum);$i++){
 }
 
 for ($i=0;$i<count($Arrays);$i++) {
-    $strs = array_keys($Arrays)[$i];
-    $Arrays[$strs] = round($Arrays[$strs] / $Arraykey[$strs],2);
+    if (isset(array_keys($Arrays)[$i])){
+        $strs = array_keys($Arrays)[$i];
+        if (isset($Arraykey[$strs])){
+            $Arrays[$strs] = round($Arrays[$strs] / $Arraykey[$strs],2);
+        }
+
+    }
+
 }
 
 
@@ -592,7 +598,7 @@ foreach ( $result as $row ) {
 $Enum = array();  //非重复 Y/Y+N
 $Knum = array();  //重复 Y/Y+N
 
-$Arrays2 = array();
+$Arrays2 = array('分支'=>0,'循环'=>0,'数组'=>0,'函数'=>0,'字符串'=>0,'指针'=>0);
 
 $Arraykey = array();
 
@@ -622,8 +628,15 @@ for ($i = 0 ; $i<count($Ynum3);$i++){
 }
 
 for ($i=0;$i<count($Arrays2);$i++) {
-    $strs2 = array_keys($Arrays2)[$i];
-    $Arrays2[$strs2] = round($Arrays2[$strs2] / $Arraykey[$strs2],2);
+        if (isset(array_keys($Arrays2)[$i])){
+            $strs2 = array_keys($Arrays2)[$i];
+            if (isset($Arraykey[$strs2])){
+                $Arrays2[$strs2] = round($Arrays2[$strs2] / $Arraykey[$strs2],2);
+            }
+
+        }
+
+
 }
 
 

@@ -500,7 +500,8 @@ foreach ( $result as $row ) {
 $Enum = array();  //非重复 Y/Y+N
 $Knum = array();  //重复 Y/Y+N
 
-$Arrays = array();
+
+$Arrays = array('分支'=>0,'循环'=>0,'数组'=>0,'函数'=>0,'字符串'=>0,'指针'=>0);
 
 $Arraykey = array();
 for ($i = 0 ; $i<count($Ynum);$i++){
@@ -528,11 +529,18 @@ for ($i = 0 ; $i<count($Ynum);$i++){
     }
 }
 
-for ($i=0;$i<count($Arrays);$i++) {
-    $strs = array_keys($Arrays)[$i];
-    $Arrays[$strs] = round($Arrays[$strs] / $Arraykey[$strs],2);
-}
 
+
+for ($i=0;$i<count($Arrays);$i++) {
+    if (isset(array_keys($Arrays)[$i])){
+        $strs = array_keys($Arrays)[$i];
+        if (isset($Arraykey[$strs])){
+            $Arrays[$strs] = round($Arrays[$strs] / $Arraykey[$strs],2);
+        }
+
+    }
+
+}
 
 $name = '所有人各单元分数';
 $name2 = $str[0].'班所有人各单元分数';
@@ -543,54 +551,54 @@ $result =  mysql_query_cache( $sql );
 $stu_num1 =  $result[0][0];
 
 //统计班级 = all里面所有人的Y的个数(不重复)
-$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result = 4 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id";
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result = 4 and users.defunct = 'N' and bclass in ('$str[0]')) as datas GROUP BY problem_id";
 $result =  mysql_query_cache( $sql );
 $Ynum3 = array();
 
 foreach ( $result as $row ) {
-    array_push( $Ynum3, array( $row[ 'user_id' ],$row['source'],$row['c']) );
+    array_push( $Ynum3, array( $row[ 'problem_id' ],$row['source'],$row['c']) );
 }
 
 
 //统计班级 = all里面所有人的提交次数(不重复)
-$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id	";
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ('$str[0]')) as datas GROUP BY problem_id	";
 $result =  mysql_query_cache( $sql );
 $Znum3 = array();
 
 foreach ( $result as $row ) {
-    array_push( $Znum3, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
+    array_push( $Znum3, array( $row[ 'problem_id' ],$row['source'], $row[ 'c' ] ) );
 }
 
 //统计班级 = all里面每个人的N次数(不重复)
-$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result != 4 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id";
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select DISTINCT `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result != 4 and users.defunct = 'N' and bclass in ('$str[0]')) as datas GROUP BY problem_id";
 $result =  mysql_query_cache( $sql );
 $Nnum3 = array();
 
 foreach ( $result as $row ) {
-    array_push( $Nnum3, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
+    array_push( $Nnum3, array( $row[ 'problem_id' ],$row['source'], $row[ 'c' ] ) );
 }
 
 //统计班级 = all里面所有人的提交次数(重复)
-$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id	";
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result <13 and users.defunct = 'N' and bclass in ('$str[0]')) as datas GROUP BY problem_id	";
 $result =  mysql_query_cache( $sql );
 $Znum4 = array();
 foreach ( $result as $row ) {
-    array_push( $Znum4, array( $row[ 'user_id' ],$row['source'], $row[ 'c' ] ) );
+    array_push( $Znum4, array( $row[ 'problem_id' ],$row['source'], $row[ 'c' ] ) );
 }
 
 //统计班级 = all里面所有人的Y的个数(重复)
-$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ($str[0])) as datas GROUP BY problem_id	";
+$sql = "SELECT problem_id,source,count(problem_id) as c from (select `problem`.problem_id,source, `solution`.user_id,bclass,result from `problem`,`solution`,`users` WHERE users.user_id = solution.user_id and problem.problem_id = solution.problem_id and result =4 and users.defunct = 'N' and bclass in ('$str[0]')) as datas GROUP BY problem_id	";
 $result =  mysql_query_cache( $sql );
 $Ynum4 = array();
 
 foreach ( $result as $row ) {
-    array_push( $Ynum4, array( $row[ 'user_id' ],$row['source'],$row['c']) );
+    array_push( $Ynum4, array( $row[ 'problem_id' ],$row['source'],$row['c']) );
 }
 
 $Enum = array();  //非重复 Y/Y+N
 $Knum = array();  //重复 Y/Y+N
 
-$Arrays2 = array();
+$Arrays2 = array('分支'=>0,'循环'=>0,'数组'=>0,'函数'=>0,'字符串'=>0,'指针'=>0);
 
 $Arraykey2 = array();
 for ($i = 0 ; $i<count($Ynum3);$i++){
@@ -608,7 +616,7 @@ for ($i = 0 ; $i<count($Ynum3);$i++){
             $Arrays2[$strl2] = 0;//初始化
             $Arraykey2[$strl2] = 0;
             $Arrays2[$strl2] = $Arrays2[$strl2]+($Enum[$i][1]*70+$Knum[$i][1]*30);
-            $Arraykey2[$strl2] = $Arraykey[$strl2] +1;
+            $Arraykey2[$strl2] = $Arraykey2[$strl2] +1;
         }else if (in_array($strl2,$title2)&&isset($Arrays2[$strl2])){ //如果题目标签在数组中且键名存在
 
             $Arrays2[$strl2] = $Arrays2[$strl2]+($Enum[$i][1]*70+$Knum[$i][1]*30);
@@ -619,8 +627,15 @@ for ($i = 0 ; $i<count($Ynum3);$i++){
 }
 
 for ($i=0;$i<count($Arrays2);$i++) {
-    $strs2 = array_keys($Arrays2)[$i];
-    $Arrays2[$strs2] = round($Arrays2[$strs2] / $Arraykey2[$strs2],2);
+    if (isset(array_keys($Arrays2)[$i])){
+        $strs2 = array_keys($Arrays2)[$i];
+        if (isset($Arraykey[$strs2])){
+            $Arrays2[$strs2] = round($Arrays2[$strs2] / $Arraykey2[$strs2],2);
+        }
+
+    }
+
+
 }
 
 

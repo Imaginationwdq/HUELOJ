@@ -73,7 +73,7 @@
 
 <script type="text/javascript">
     //平行坐标系
-    var myChart3 = echarts.init(document.getElementById('main4'));
+    var myChart3 = echarts.init(document.getElementById(''));
     var option = {
         parallelAxis: [
             {dim: 0, name: 'Weekend1'},

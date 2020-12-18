@@ -22,7 +22,7 @@ $option_class.="<li><a href='teacherEcharts.php'>ALL</a></li>&nbsp;";
 for($i=0;$i<count($str);$i++){
     $option_class.="<li><a href='teacherEcharts2.php?t_class=".(int)$str[$i]."'>".$str[$i]."</a></li>&nbsp;";
 }
-
+$ClassNames  =  'All';
 
 //获取班级的数据----------------start--------------
 $sql = "select user_id,nick,solved from users where defunct = 'N' and bclass in ($t_class2) order by solved desc ";

@@ -13,6 +13,8 @@
 
 <!--    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>-->
     <script src="/HUELOJ/echarts/js/echarts.min.js"></script>
+    <script src ="/HUELOJ/echarts/js/chalk.js"></script>
+    <script src ="/HUELOJ/echarts/js/macarons.js"></script>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>jquery.min.js"></script>
 
@@ -21,13 +23,16 @@
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
+
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 </head>
-<body>
+<body style="background-image: url(/HUELOJ/echarts/bg.jpg)">
 
 <div class="container">
+
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="row">
@@ -46,50 +51,114 @@
 
     </div>
 
-    <div class="jumbotron">
 
+</div> <!-- /container -->
+<section style="min-width: 1024px;max-width: 1920px;margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
 
-
-        <div class="row">
-            <div class="col-md-2" style="height: 350px;border: 1px solid" id="main1"></div>
-            <div class="col-md-7" style="height: 350px;border: 1px solid">
-                <div style="height: 320px;" id="main2"></div>
-                <div class="row" style="">
-                    <div class="col-md-3" style="padding-left: 50px;"><?php echo $datetest1?></div>
-                    <div class="col-md-3" style="padding-left: 60px;"><?php echo $datetest2?></div>
-                    <div class="col-md-3" style="padding-left: 90px;"><?php echo $datetest3?></div>
-                    <div class="col-md-3" style="padding-left: 100px;"><?php echo $datetest4?></div>
+    <div style="flex:3">
+        <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
+            <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                <div id="main2" style="height: 250px;margin-top: 18px;"></div>
+                <div class="col-md-3" style="padding-left: 50px;"><?php echo $datetest1?></div>
+                <div class="col-md-3" style="padding-left: 60px;"><?php echo $datetest2?></div>
+                <div class="col-md-3" style="padding-left: 90px;"><?php echo $datetest3?></div>
+                <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest4?></div>
+                <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                    <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                    <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
                 </div>
             </div>
-            <div class="col-md-3" style="height: 350px;border: 1px solid" id="Scatter" >3</div>
-        </div>
-        <div class="row">
-            <div class="col-md-3" style="height: 280px;border: 1px solid" id="Rader">4</div>
-            <div class="col-md-5" style="height: 280px;">
-               <div style="overflow-y: auto;overflow-x:auto;margin-top:25px;height: 250px;border: 1px solid" > <?php echo $student ?> </div>
+            <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                <div id="Finance" style="height: 280px;margin-top: 18px;"></div>
+                <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                    <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                    <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                </div>
             </div>
-            <div class="col-md-4" style="height: 280px;border: 1px solid" id="Finance">
-
-<!--                ----------------------------------------------------测试数据------------------------------------------------------------->
-<!--                --><?php
-//                    echo $userId."<br/>";
-//                    echo $studentC."<br/>";
-//                    echo $studentD."<br/>";
-//                    echo $levelENum."<br/>";
-//                ?>
-            </div>
-
         </div>
     </div>
-</div> <!-- /container -->
+    <div style="flex:6">
+           <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
+                <div style="flex: 3">
+                    <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
+                        <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                            <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                            <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            <div id="" style="height: 280px;margin-top: 18px;"></div>
+                            <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                                <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                                <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            </div>
+                        </div>
+                        <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                            <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                            <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            <div id="Rader" style="height: 280px;margin-top: 18px;"></div>
+                            <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                                <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                                <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <div style="flex:6;height: 600px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                   <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                   <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+
+
+                   <div style="height: 600px;margin-top: 18px;overflow-y: auto;overflow-x:auto;border: 1px solid #2ec7c9">
+                       <?php echo $student ?>
+                   </div>
+
+                   <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                       <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                       <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                   </div>
+               </div>
+               <div style="flex: 3">
+                   <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
+                       <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                           <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                           <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           <div id="Scatter" style="height: 280px;margin-top: 18px;width: 300px"></div>
+                           <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                               <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                               <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           </div>
+                       </div>
+                       <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                           <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                           <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           <div id="main1" style="height: 280px;margin-top: 18px;"></div>
+                           <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                               <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                               <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+    </div>
+</section>
+
 </body>
 </html>
 <script type="text/javascript">
     // 基桑图
-    var myChart2 = echarts.init(document.getElementById('main2'));
+    var myChart2 = echarts.init(document.getElementById('main2'),'macarons');
     // 指定图表的配置项和数据
     var option = {
-
+        title:{
+            text:'<?php echo $ClassNames ?>'+"班级学生考试成绩走势",
+            textStyle:{
+                fontSize:15,
+            },
+            left:'center'
+        },
         tooltip: {
             trigger: "item"
         },
@@ -132,20 +201,28 @@
     myChart2.setOption(option);
 
     // 饼状图
-    var myChart1 = echarts.init(document.getElementById('main1'));
+    var myChart1 = echarts.init(document.getElementById('main1'),'macarons');
     // 指定图表的配置项和数据
     option = {
+        title:{
+            text:'<?php echo $ClassNames ?>'+"班级所有提交运行状况",
+            textStyle:{
+                fontSize:15,
+            },
+            left:'center'
+        },
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         series: [
             {
-                color: ['#339900','#CC0033'],
+                //color: ['#339900','#CC0033'],
+
                 name: '正确情况',
                 type: 'pie',
                 selectedMode: 'single',
-                radius: [0, '60%'],
+                radius: [0, '45%'],
                 left:'5',
                 label: {
                     position: 'inner'
@@ -156,10 +233,10 @@
                 data: <?php echo $data1 ?>
             },
             {
-                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
+               // color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
                 name: '详细状况',
                 type: 'pie',
-                radius: ['75%', '100%'],
+                radius: ['60%', '75%'],
                 left:'5',
                 label: {
                     show: false,
@@ -195,7 +272,7 @@
 
     var d1 = <?php echo json_encode($chart_data_all)?>;
     var d2 = <?php echo json_encode($chart_data_all1)?>;
-    var ScatterChart = echarts.init(document.getElementById('Scatter'));
+    var ScatterChart = echarts.init(document.getElementById('Scatter'),'macarons');
     var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
         '7a', '8a', '9a','10a','11a',
         '12p', '1p', '2p', '3p', '4p', '5p',
@@ -210,7 +287,7 @@
         tooltip: {
             position: 'top'
         },
-        title: [],
+        title:[],
         singleAxis: [],
         series: []
     };
@@ -259,11 +336,18 @@
 
 </script>
 <script>
-    var RaderChart = echarts.init(document.getElementById('Rader'));
+    var RaderChart = echarts.init(document.getElementById('Rader'),'macarons');
 
     option = {
         tooltip: {
 
+        },
+        title:{
+            text:'<?php echo $ClassNames ?>'+"班级章节分数分布",
+            textStyle:{
+                fontSize:15,
+            },
+            left:'center'
         },
         legend: {
            bottom:'5px'
@@ -341,15 +425,23 @@
 </script>
 <script>
 
-    var FinChart = echarts.init(document.getElementById('Finance'));
+    var FinChart = echarts.init(document.getElementById('Finance'),'macarons');
     var names = <?php echo json_encode(array_keys($TArray)) ?>;
 
 
     option = {
 
 
-
         baseOption: {
+
+            title:{
+                text:'<?php echo $ClassNames ?>'+"班级错误类型数量分布",
+                textStyle:{
+                    fontSize:15,
+                },
+                left:'center'
+            },
+
             timeline: {
                 show:false
             },

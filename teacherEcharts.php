@@ -156,10 +156,10 @@ $data2=json_encode($s2);
 //$sql ="select user_id,solved,bclass from users where bclass in ($t_class2) order by solved desc";
 
 // 开发时，为了测试而使用的日期
-$datetest4 = "".date("m-d",strtotime("-5 month"));
-$datetest3 = "".date("m-d",strtotime("-5 month -7day"));
-$datetest2 = "".date("m-d",strtotime("-5 month -14day"));
-$datetest1 = "".date("m-d",strtotime("-5 month -21day"));
+$datetest4 = "".date("Y-m-d",strtotime("-5 month"));
+$datetest3 = "".date("Y-m-d",strtotime("-5 month -7day"));
+$datetest2 = "".date("Y-m-d",strtotime("-5 month -14day"));
+$datetest1 = "".date("Y-m-d",strtotime("-5 month -21day"));
 
 $student1 = array();
 $student2 = array();
@@ -407,55 +407,55 @@ for ($i = 0;$i<7;$i++){
 
 $d = 0;
 
-    for ($i = 0;$i <= count($chart_data_all1);$i++){
-         $day1 = (int)substr($chart_data_all1[$i][0],8,2);
-         $day2 = (int)substr($chart_data_all[$d][0],8,2);
+for ($i = 0;$i <= count($chart_data_all1);$i++){
+    $day1 = (int)substr($chart_data_all1[$i][0],8,2);
+    $day2 = (int)substr($chart_data_all[$d][0],8,2);
 
-        if ($day1==$day2){
-            //天为该天日期
+    if ($day1==$day2){
+        //天为该天日期
 
 
-            $hour = (int)substr($chart_data_all1[$i][0],11,2);  //获取小时
+        $hour = (int)substr($chart_data_all1[$i][0],11,2);  //获取小时
 
-            for ($h = 0;$h < 24;$h++){
+        for ($h = 0;$h < 24;$h++){
 
-                if ($hour >= $h && $hour < $h+1){   //如果获取的时间在这个时间段内，则提交量累加
+            if ($hour >= $h && $hour < $h+1){   //如果获取的时间在这个时间段内，则提交量累加
 
-                    $counts[$hour] = $counts[$hour]  + (int)$chart_data_all1[$i][1];
-
-                }
+                $counts[$hour] = $counts[$hour]  + (int)$chart_data_all1[$i][1];
 
             }
 
+        }
 
 
-        }  else if ($day1<$day2){
-            $Darray[$d] = $counts;
-            $d++;
-            if ($d==7)
-                break;
-           // echo "第".$day1."<br>";echo "第".$day2."<br>"; print_r($Darray);
-            for ($j = 0;$j<24;$j++){
-                $counts[$j] = 0;
-            }
-        }else{
+
+    }  else if ($day1<$day2){
+        $Darray[$d] = $counts;
+        $d++;
+        if ($d==7)
             break;
+        // echo "第".$day1."<br>";echo "第".$day2."<br>"; print_r($Darray);
+        for ($j = 0;$j<24;$j++){
+            $counts[$j] = 0;
         }
+    }else{
+        break;
+    }
+
+}
+$data = array();
+$z = 0;
+
+for ($i = 0 ; $i< 7 ;$i++){
+    for ($j = 0;$j < 24;$j ++ ){
+
+        $data[$z] = [$i,$j,$Darray[$i][$j]];
+        $z++;
+
 
     }
-    $data = array();
-    $z = 0;
 
-    for ($i = 0 ; $i< 7 ;$i++){
-        for ($j = 0;$j < 24;$j ++ ){
-
-                $data[$z] = [$i,$j,$Darray[$i][$j]];
-                $z++;
-
-
-        }
-
-    }
+}
 
 
 //第三个图-------------end-------------
@@ -535,11 +535,11 @@ for ($i = 0 ; $i<count($Ynum);$i++){
             $Arraykey[$strl] = 0;
             $Arrays[$strl] = $Arrays[$strl]+($Enum[$i][1]*70+$Knum[$i][1]*30);
             $Arraykey[$strl] = $Arraykey[$strl] +1;
-    }else if (in_array($strl,$title)&&isset($Arrays[$strl])){ //如果题目标签在数组中且键名存在
+        }else if (in_array($strl,$title)&&isset($Arrays[$strl])){ //如果题目标签在数组中且键名存在
 
             $Arrays[$strl] = $Arrays[$strl]+($Enum[$i][1]*70+$Knum[$i][1]*30);
             $Arraykey[$strl] = $Arraykey[$strl] +1;
-    }
+        }
 
     }
 }

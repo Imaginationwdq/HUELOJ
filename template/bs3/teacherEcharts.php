@@ -138,7 +138,7 @@
 
 <script>
     //平行坐标系
-    var myChart3 = echarts.init(document.getElementById(''));
+    var myChart3 = echarts.init(document.getElementById('main4'));
     var option = {
         title:{
             text:'<?php echo $MyTitle ?>'+"做题正确数量走势",

@@ -13,6 +13,8 @@ $result=false;
 
 $sid=$_SESSION[$OJ_NAME.'_'.'user_id'];
 $userId=$_GET['user_id'];
+
+$MyTitle = $userId."学生";
 // 获取当前学生的班级
 $sql = "select bclass from users where user_id ='$userId'";
 $result = mysql_query_cache($sql);
@@ -67,10 +69,10 @@ $student .=" </tbody>
 //$sql ="select user_id,solved,bclass from users where bclass in ($t_class2) order by solved desc";
 
 // 开发时，为了测试而使用的日期
-$datetest4 = "".date("Y-m-d",strtotime("-3 month"));
-$datetest3 = "".date("Y-m-d",strtotime("-3 month -7day"));
-$datetest2 = "".date("Y-m-d",strtotime("-3 month -14day"));
-$datetest1 = "".date("Y-m-d",strtotime("-3 month -21day"));
+$datetest4 = "".date("Y-m-d",strtotime("-5 month"));
+$datetest3 = "".date("Y-m-d",strtotime("-5 month -7day"));
+$datetest2 = "".date("Y-m-d",strtotime("-5 month -14day"));
+$datetest1 = "".date("Y-m-d",strtotime("-5 month -21day"));
 
 $student1 = array();
 $student2 = array();
@@ -122,27 +124,35 @@ $studentA = 0;
 $studentB = 0;
 $studentC = 0;
 $studentD = 0;
+$studentRightNum1 = 0;
+$studentRightNum2 = 0;
+$studentRightNum3 = 0;
+$studentRightNum4 = 0;
 foreach ($student1 as $entity){
     $studentA++;
     if (strcmp($entity[0],$userId)==0){
+        $studentRightNum1  = $entity[1];
         break;
     }
 }
 foreach ($student2 as $entity){
     $studentB++;
     if (strcmp($entity[0],$userId)==0){
+        $studentRightNum2  = $entity[1];
         break;
     }
 }
 foreach ($student3 as $entity){
     $studentC++;
     if (strcmp($entity[0],$userId)==0){
+        $studentRightNum3  = $entity[1];
         break;
     }
 }
 foreach ($student4 as $entity){
     $studentD++;
     if (strcmp($entity[0],$userId)==0){
+        $studentRightNum4  = $entity[1];
         break;
     }
 }
@@ -198,8 +208,11 @@ function getLevel($i,$classTotal,$numi){
     }
 }
 // 获取基桑图的数据-----------end------------------
-
-
+// 获取平行坐标系的数据-----------start------------------
+$data3 = "[";
+$data3 .= "[$studentRightNum1,$studentRightNum2,$studentRightNum3,$studentRightNum4]";
+$data3 .= "]";
+// 获取平行坐标系的数据-----------end------------------
 //第三个图-------------start-------------
 
 $sql = "SELECT date(in_date) md,count(1) c FROM (select * from solution order by solution_id desc limit 8000) solution  where result<13 group by md order by md desc limit 200";

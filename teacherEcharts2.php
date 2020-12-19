@@ -13,7 +13,7 @@ $result=false;
 
 $sid=$_SESSION[$OJ_NAME.'_'.'user_id'];
 $t_class = $_GET['t_class'];
-
+$MyTitle  = $t_class."班";
 //获取班级选项
 $sid=$_SESSION[$OJ_NAME.'_'.'user_id'];
 $sql = "select tclass from users where user_id ='$sid'";
@@ -72,10 +72,10 @@ $student .=" </tbody>
 //$sql ="select user_id,solved,bclass from users where bclass in ($t_class2) order by solved desc";
 
 // 开发时，为了测试而使用的日期
-$datetest4 = "".date("Y-m-d",strtotime("-3 month"));
-$datetest3 = "".date("Y-m-d",strtotime("-3 month -7day"));
-$datetest2 = "".date("Y-m-d",strtotime("-3 month -14day"));
-$datetest1 = "".date("Y-m-d",strtotime("-3 month -21day"));
+$datetest4 = "".date("Y-m-d",strtotime("-5 month"));
+$datetest3 = "".date("Y-m-d",strtotime("-5 month -7day"));
+$datetest2 = "".date("Y-m-d",strtotime("-5 month -14day"));
+$datetest1 = "".date("Y-m-d",strtotime("-5 month -21day"));
 
 $student1 = array();
 $student2 = array();
@@ -268,7 +268,22 @@ for ($i=1;$i<=5;$i++){
 }
 $studentLinks .= "]";
 // 获取基桑图的数据-----------end------------------
+// 获取平行坐标系的数据-----------start------------------
 
+$data3 = "[";
+for($i=0;$i<count($student1);$i++){
+    $submit1 = $student1[$i][1];
+    $submit2 = $student2[$i][1];
+    $submit3 = $student3[$i][1];
+    $submit4 = $student4[$i][1];
+    $data3 .= "[$submit1,$submit2,$submit3,$submit4]";
+    if ($i!=count($student1)-1){
+        $data3 .= ",";
+    }
+}
+$data3 .= "]";
+
+// 获取平行坐标系的数据-----------end------------------
 //获取饼状图的 一个班级的数据----------------start--------------
 //正确个数
 $sql = "select count(*) from solution s left join users u on s.user_id = u.user_id where u.bclass = '$t_class' and s.result = 4";

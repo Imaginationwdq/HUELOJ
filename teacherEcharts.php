@@ -23,7 +23,7 @@ for($i=0;$i<count($str);$i++){
     $option_class.="<li><a href='teacherEcharts2.php?t_class=".(int)$str[$i]."'>".$str[$i]."</a></li>&nbsp;";
 }
 $ClassNames  =  'All';
-
+$MyTitle  = "所有班级";
 //获取班级的数据----------------start--------------
 $sql = "select user_id,nick,solved from users where defunct = 'N' and bclass in ($t_class2) order by solved desc ";
 $result = mysql_query_cache($sql);
@@ -152,16 +152,14 @@ $data2=json_encode($s2);
 //$date21 = date("Y-m-d",strtotime("-21 day"));
 //$date28 = date("Y-m-d",strtotime("-28 day"));
 
-
-
 // 获取一周内 该老师的所有班 学生 做对题的数量
 //$sql ="select user_id,solved,bclass from users where bclass in ($t_class2) order by solved desc";
 
 // 开发时，为了测试而使用的日期
-$datetest4 = "".date("Y-m-d",strtotime("-3 month"));
-$datetest3 = "".date("Y-m-d",strtotime("-3 month -7day"));
-$datetest2 = "".date("Y-m-d",strtotime("-3 month -14day"));
-$datetest1 = "".date("Y-m-d",strtotime("-3 month -21day"));
+$datetest4 = "".date("Y-m-d",strtotime("-5 month"));
+$datetest3 = "".date("Y-m-d",strtotime("-5 month -7day"));
+$datetest2 = "".date("Y-m-d",strtotime("-5 month -14day"));
+$datetest1 = "".date("Y-m-d",strtotime("-5 month -21day"));
 
 $student1 = array();
 $student2 = array();

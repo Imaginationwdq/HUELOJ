@@ -7,35 +7,27 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-
     <title><?php echo $OJ_NAME?></title>
     <?php include("template/$OJ_TEMPLATE/css.php");?>
-
 <!--    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>-->
     <script src="/HUELOJ/echarts/js/echarts.min.js"></script>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>jquery.min.js"></script>
-
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="<?php echo $OJ_CDN_URL.$path_fix."template/$OJ_TEMPLATE/"?>bootstrap.min.js"></script>
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-
     <![endif]-->
 </head>
-<body style="background-image: url(/HUELOJ/echarts/bg.jpg)">
-
+<!--<body style="background-image: url(/HUELOJ/echarts/bg.jpg)">-->
+<body>
 <div class="container">
-
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="row">
         <div class="col-md-10"></div>
-
         <div class="dropdown col-md-1">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <?php echo $t_class ?>
@@ -46,13 +38,9 @@
             </ul>
         </div>
         <div class="col-md-1"></div>
-
     </div>
-
-
-</div> <!-- /container -->
+</div>
 <section style="min-width: 1024px;max-width: 1920px;margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
-
     <div style="flex:3">
         <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
             <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
@@ -81,12 +69,12 @@
     </div>
     <div style="flex:6">
            <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
-                <div style="flex: 3">
+               <div style="flex: 3">
                     <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
                         <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
                             <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                             <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
-                            <div id="" style="height: 280px;margin-top: 18px;"></div>
+                            <div id="main1" style="height: 280px;margin-top: 18px;"></div>
                             <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
                                 <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                                 <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
@@ -131,7 +119,7 @@
                        <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
                            <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                            <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
-                           <div id="main1" style="height: 280px;margin-top: 18px;"></div>
+                           <div id="main4" style="height: 280px;margin-top: 18px;"></div>
                            <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
                                <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                                <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
@@ -142,14 +130,23 @@
            </div>
     </div>
 </section>
-
+<!--<div>-->
+<!--    --><?php //echo $t_class?>
+<!--</div>-->
 </body>
 </html>
 
-<script type="text/javascript">
+<script>
     //平行坐标系
     var myChart3 = echarts.init(document.getElementById('main4'));
     var option = {
+        title:{
+            text:'<?php echo $MyTitle ?>'+"做题正确数量走势",
+            textStyle:{
+                fontSize:15,
+            },
+            left:'center'
+        },
         parallelAxis: [
             {dim: 0, name: 'Weekend1'},
             {dim: 1, name: 'Weekend2'},
@@ -165,7 +162,8 @@
         series: {
             type: 'parallel',
             lineStyle: {
-                width: 2
+                width: 2,
+                color: '#fd0000'
             },
             data: <?php echo $data3 ?>
         }
@@ -173,14 +171,13 @@
 
     myChart3.setOption(option);
 </script>
-
-<script type="text/javascript">
+<script>
     // 基桑图
     var myChart2 = echarts.init(document.getElementById('main2'),'macarons');
     // 指定图表的配置项和数据
     var option = {
         title:{
-            text:'<?php echo $ClassNames ?>'+"班级学生考试成绩走势",
+            text:'<?php echo $MyTitle ?>'+"考试成绩走势",
             textStyle:{
                 fontSize:15,
             },
@@ -227,14 +224,13 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart2.setOption(option);
 </script>
-
-<script type="text/javascript">
+<script>
     // 饼状图
     var myChart1 = echarts.init(document.getElementById('main1'),'macarons');
     // 指定图表的配置项和数据
     option = {
         title:{
-            text:'<?php echo $ClassNames ?>'+"班级所有提交运行状况",
+            text:'<?php echo $MyTitle ?>'+"提交运行状况",
             textStyle:{
                 fontSize:15,
             },
@@ -244,14 +240,19 @@
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
+        // legend: {
+        //     type: 'scroll',
+        //     orient: 'vertical',
+        //     right: 10,
+        //     top: 20,
+        //     bottom: 20,
+        // },
         series: [
             {
                 //color: ['#339900','#CC0033'],
-
                 name: '正确情况',
                 type: 'pie',
-                selectedMode: 'single',
-                radius: [0, '45%'],
+                radius: [0, '40%'],
                 left:'5',
                 label: {
                     position: 'inner'
@@ -265,15 +266,16 @@
                // color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
                 name: '详细状况',
                 type: 'pie',
-                radius: ['60%', '75%'],
+                selectedMode: 'single',
+                radius: ['55%', '80%'],
                 left:'5',
                 label: {
-                    show: false,
+                    // show: false,
                     formatter: '{b|{b}}',
                     rich: {
                         b: {
                             // 配置b的样式
-                            fontSize: 10
+                            fontSize: 12
                         }
                     }
                 },
@@ -372,7 +374,7 @@
 
         },
         title:{
-            text:'<?php echo $ClassNames ?>'+"班级章节分数分布",
+            text:'<?php echo $MyTitle ?>'+"章节分数分布",
             textStyle:{
                 fontSize:15,
             },
@@ -464,7 +466,7 @@
         baseOption: {
 
             title:{
-                text:'<?php echo $ClassNames ?>'+"班级错误类型数量分布",
+                text:'<?php echo $MyTitle ?>'+"错误类型数量分布",
                 textStyle:{
                     fontSize:15,
                 },

@@ -22,7 +22,7 @@
     <![endif]-->
 </head>
 <!--<body style="background-image: url(/HUELOJ/echarts/bg.jpg)">-->
-<body>
+<body style="background: linear-gradient(papayawhip,papayawhip)";>
 <div class="container">
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
@@ -41,25 +41,37 @@
     </div>
 </div>
 <section style="min-width: 1024px;max-width: 1920px;margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
-    <div style="flex:3">
+    <div style="flex:20">
         <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
-            <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+            <div style="flex:20;height: 400px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px ;margin-bottom: 15px;position: relative; " >
                 <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                 <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
-                <div id="main2" style="height: 250px;margin-top: 18px;"></div>
-                <div class="col-md-3" style="padding-left: 50px;"><?php echo $datetest1?></div>
-                <div class="col-md-3" style="padding-left: 60px;"><?php echo $datetest2?></div>
-                <div class="col-md-3" style="padding-left: 90px;"><?php echo $datetest3?></div>
-                <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest4?></div>
+                <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
+                    <div style="flex: 5;">
+                        <div id="main2" style="height: 350px;margin-top: 18px;"></div>
+                    </div>
+                    <div style="flex: 1">
+                        <div style="padding:0;display: flex;flex-direction: row">
+
+                                <div style="flex: 1;"><center><?php echo $datetest1?></center></div>
+                                <div style="flex: 1;"><center><?php echo $datetest2?></center></div>
+                                <div style="flex: 1;"><center><?php echo $datetest3?></center></div>
+                                <div style="flex: 1;"><center><?php echo $datetest4?></center></div>
+
+                        </div>
+                    </div>
+
+                </div>
                 <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
                     <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                     <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
                 </div>
             </div>
-            <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+            <div style="flex: 1;"></div>
+            <div style="flex:20;height: 400px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px ;margin-bottom: 15px;position: relative;" >
                 <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                 <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
-                <div id="Finance" style="height: 280px;margin-top: 18px;"></div>
+                <div id="Finance" style="height: 330px;margin-top: 18px;"></div>
                 <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
                     <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                     <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
@@ -67,20 +79,22 @@
             </div>
         </div>
     </div>
-    <div style="flex:6">
+    <div style="flex:3">
            <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
                <div style="flex: 3">
                     <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
-                        <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                        <div style="flex:6;height: 310px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px;margin-bottom: 15px;position: relative" >
                             <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                             <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
-                            <div id="main1" style="height: 280px;margin-top: 18px;"></div>
+                            <div id="main1" style="height: 315px;margin-top: 18px;"></div>
                             <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
                                 <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                                 <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
                             </div>
                         </div>
-                        <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+
+
+                        <div style="flex:6;height: 310px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px;margin-bottom: 15px;position: relative" >
                             <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                             <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
                             <div id="Rader" style="height: 280px;margin-top: 18px;"></div>
@@ -91,13 +105,16 @@
                         </div>
                     </div>
                 </div>
-               <div style="flex:6;height: 600px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+               <div style="flex:4;height: 655px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px;margin-bottom: 15px;position: relative;margin-top: 10px;" >
                    <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                    <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
 
 
-                   <div style="height: 600px;margin-top: 18px;overflow-y: auto;overflow-x:auto;border: 1px solid #2ec7c9">
-                       <?php echo $student ?>
+                   <div style="height: 620px;margin-top: 18px;border: 2px solid #2ec7c9 ; background: rgba(255, 255, 255, 0.04) url(../../line.png);">
+                       <div style="overflow-y: auto;overflow-x:auto;height: 620px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px;margin-bottom: 15px;position: relative;"">
+                           <?php echo $student ?>
+                       </div>
+
                    </div>
 
                    <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
@@ -107,19 +124,20 @@
                </div>
                <div style="flex: 3">
                    <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
-                       <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                       <div style="flex:6;height: 310px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 15px ;margin-bottom: 15px;position: relative" >
                            <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                            <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
-                           <div id="Scatter" style="height: 280px;margin-top: 18px;width: 300px"></div>
+
+                           <div id="Scatter" style="height: 300px;width: 500px;margin-top: 18px;"></div>
                            <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
                                <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                                <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
                            </div>
                        </div>
-                       <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                       <div style="flex:6;height: 310px;border: 2px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px ;margin-bottom: 15px;position: relative" >
                            <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                            <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
-                           <div id="main4" style="height: 280px;margin-top: 18px;"></div>
+                           <div id="main4" style="height: 280px;margin-top: 18px; "></div>
                            <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
                                <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
                                <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
@@ -138,15 +156,19 @@
 
 <script>
     //平行坐标系
-    var myChart3 = echarts.init(document.getElementById(''));
+    var myChart3 = echarts.init(document.getElementById('main4'));
     var option = {
         title:{
             text:'<?php echo $MyTitle ?>'+"做题正确数量走势",
             textStyle:{
                 fontSize:15,
+                height:20,
             },
+            top:'bottom',
+            bottom:5,
             left:'center'
         },
+
         parallelAxis: [
             {dim: 0, name: 'Weekend1'},
             {dim: 1, name: 'Weekend2'},
@@ -159,8 +181,18 @@
             //     data: ['Excellent', 'Good', 'OK', 'Bad']
             // }
         ],
+        parallel:{
+            top:'center',
+            left:'center',
+            height:'80%',
+            width:'80%',
+            parallelAxisDefault: {
+                nameLocation:'end'
+            }
+        },
         series: {
             type: 'parallel',
+
             lineStyle: {
                 width: 2,
                 color: '#fd0000'
@@ -179,6 +211,7 @@
         title:{
             text:'<?php echo $MyTitle ?>'+"考试成绩走势",
             textStyle:{
+
                 fontSize:15,
             },
             left:'center'
@@ -189,6 +222,8 @@
         series: {
             type: 'sankey',
             left: 'center',
+            top:'center',
+            height:'80%',
             width:'90%',
             layout: 'none',
                 lineStyle: {
@@ -254,6 +289,8 @@
                 type: 'pie',
                 radius: [0, '40%'],
                 left:'5',
+                top:'center',
+                height:'110%',
                 label: {
                     position: 'inner'
                 },
@@ -267,10 +304,12 @@
                 name: '详细状况',
                 type: 'pie',
                 selectedMode: 'single',
-                radius: ['55%', '80%'],
+                radius: ['55%', '75%'],
                 left:'5',
+                top:'center',
+                height:'100%',
                 label: {
-                    // show: false,
+                    show: false,
                     formatter: '{b|{b}}',
                     rich: {
                         b: {
@@ -336,7 +375,7 @@
         });
         option.singleAxis.push({
 
-            left: 80,
+            left:80,
             type: 'category',
             boundaryGap: false,
             data: hours,
@@ -402,7 +441,7 @@
                 {name: '<?php echo $strname ?>', max: 100},
                 <?php } ?>
             ],
-            radius: '55%',
+            radius: '50%',
 
         },
         series: [{
@@ -811,7 +850,9 @@
                             }
                         ],
                         series: [
-                            {name: '数量', type: 'bar'},
+                            {name: '数量', type: 'bar'
+
+                            },
                             {
                                 name: '问题类型占比',
                                 type: 'pie',

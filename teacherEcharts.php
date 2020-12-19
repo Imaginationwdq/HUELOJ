@@ -156,10 +156,10 @@ $data2=json_encode($s2);
 //$sql ="select user_id,solved,bclass from users where bclass in ($t_class2) order by solved desc";
 
 // 开发时，为了测试而使用的日期
-$datetest4 = "".date("Y-m-d",strtotime("-5 month"));
-$datetest3 = "".date("Y-m-d",strtotime("-5 month -7day"));
-$datetest2 = "".date("Y-m-d",strtotime("-5 month -14day"));
-$datetest1 = "".date("Y-m-d",strtotime("-5 month -21day"));
+$datetest4 = "".date("m-d",strtotime("-5 month"));
+$datetest3 = "".date("m-d",strtotime("-5 month -7day"));
+$datetest2 = "".date("m-d",strtotime("-5 month -14day"));
+$datetest1 = "".date("m-d",strtotime("-5 month -21day"));
 
 $student1 = array();
 $student2 = array();

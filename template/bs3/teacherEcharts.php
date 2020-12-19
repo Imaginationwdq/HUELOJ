@@ -21,53 +21,128 @@
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
+
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 </head>
-<body>
+<body style="background-image: url(/HUELOJ/echarts/bg.jpg)">
 
 <div class="container">
+
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-10"></div>
-            <div class="dropdown col-md-1">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <?php echo $t_class ?>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <?php echo $option_class ?>
-                </ul>
-            </div>
-            <div class="col-md-1"></div>
+    <div class="row">
+        <div class="col-md-10"></div>
+
+        <div class="dropdown col-md-1">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <?php echo $t_class ?>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <?php echo $option_class ?>
+            </ul>
         </div>
-        <div class="row">
-            <div class="col-md-3" style="height: 400px" id="main1"></div>
-            <div class="col-md-5" style="height: 400px">
-                <div style="height: 360px" id="main2"></div>
-                <div class="row">
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
-                    <div class="col-md-3"><?php echo "（".$datetest2." 到 ".$datetest1."）"?></div>
+        <div class="col-md-1"></div>
+
+    </div>
+
+
+</div> <!-- /container -->
+<section style="min-width: 1024px;max-width: 1920px;margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
+
+    <div style="flex:3">
+        <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
+            <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                <div id="main2" style="height: 250px;margin-top: 18px;"></div>
+                <div class="col-md-3" style="padding-left: 50px;"><?php echo $datetest1?></div>
+                <div class="col-md-3" style="padding-left: 60px;"><?php echo $datetest2?></div>
+                <div class="col-md-3" style="padding-left: 90px;"><?php echo $datetest3?></div>
+                <div class="col-md-3" style="padding-left: 75px;"><?php echo $datetest4?></div>
+                <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                    <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                    <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
                 </div>
             </div>
-            <div class="col-md-3" style="height: 300px" id="Scatter">3</div>
-        </div>
-        <div class="row">
-            <div class="col-md-3" style="height: 300px" id="main4">4</div>
-            <div class="col-md-5" style="height: 300px;">
-               <div style="overflow-y: auto;overflow-x:auto;margin-top: 50px;height: 250px" > <?php echo $student ?> </div>
+            <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                <div id="Finance" style="height: 280px;margin-top: 18px;"></div>
+                <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                    <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                    <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                </div>
             </div>
-            <div class="col-md-4" style="height: 300px" id="Finance">
-            </div>
-
         </div>
     </div>
-</div> <!-- /container -->
+    <div style="flex:6">
+           <div style="padding: 10px 10px 0;display: flex;flex-direction: row">
+                <div style="flex: 3">
+                    <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
+                        <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                            <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                            <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            <div id="" style="height: 280px;margin-top: 18px;"></div>
+                            <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                                <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                                <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            </div>
+                        </div>
+                        <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                            <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                            <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            <div id="Rader" style="height: 280px;margin-top: 18px;"></div>
+                            <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                                <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                                <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <div style="flex:6;height: 600px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                   <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                   <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+
+
+                   <div style="height: 600px;margin-top: 18px;overflow-y: auto;overflow-x:auto;border: 1px solid #2ec7c9">
+                       <?php echo $student ?>
+                   </div>
+
+                   <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                       <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                       <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                   </div>
+               </div>
+               <div style="flex: 3">
+                   <div style="margin: 0 auto;padding: 10px 10px 0;display: flex;flex-direction: column">
+                       <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                           <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                           <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           <div id="Scatter" style="height: 280px;margin-top: 18px;width: 300px"></div>
+                           <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                               <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                               <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           </div>
+                       </div>
+                       <div style="flex:6;height: 310px;border: 1px solid rgba(25, 186, 139, 0.17);background: rgba(255, 255, 255, 0.04) url(../../line.png);padding: 0 15px 40px;margin-bottom: 15px;position: relative" >
+                           <div style="position: absolute;top: 0;left: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                           <div style="position: absolute;top: 0;right: 0; width: 10px; height: 10px; border-top: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           <div id="main1" style="height: 280px;margin-top: 18px;"></div>
+                           <div style="position: absolute;left: 0;bottom: 0;width: 100%;">
+                               <div style="position: absolute;bottom: 0;left: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-left: 2px solid #02a6b5;"></div>
+                               <div style="position: absolute;bottom: 0;right: 0; width: 10px; height: 10px; border-bottom: 2px solid #02a6b5; border-right: 2px solid #02a6b5;"></div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+    </div>
+</section>
+
 </body>
 </html>
 
@@ -101,19 +176,25 @@
 
 <script type="text/javascript">
     // 基桑图
-    var myChart2 = echarts.init(document.getElementById('main2'));
+    var myChart2 = echarts.init(document.getElementById('main2'),'macarons');
     // 指定图表的配置项和数据
     var option = {
-
+        title:{
+            text:'<?php echo $ClassNames ?>'+"班级学生考试成绩走势",
+            textStyle:{
+                fontSize:15,
+            },
+            left:'center'
+        },
         tooltip: {
             trigger: "item"
         },
         series: {
             type: 'sankey',
             left: 'center',
-            width:'80%',
+            width:'90%',
             layout: 'none',
-            lineStyle: {
+                lineStyle: {
                 color: "source",
                 curveness: 0.5
             },
@@ -149,20 +230,29 @@
 
 <script type="text/javascript">
     // 饼状图
-    var myChart1 = echarts.init(document.getElementById('main1'));
+    var myChart1 = echarts.init(document.getElementById('main1'),'macarons');
     // 指定图表的配置项和数据
-    var option = {
+    option = {
+        title:{
+            text:'<?php echo $ClassNames ?>'+"班级所有提交运行状况",
+            textStyle:{
+                fontSize:15,
+            },
+            left:'center'
+        },
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         series: [
             {
-                color: ['#339900','#CC0033'],
+                //color: ['#339900','#CC0033'],
+
                 name: '正确情况',
                 type: 'pie',
                 selectedMode: 'single',
-                radius: [0, '30%'],
+                radius: [0, '45%'],
+                left:'5',
                 label: {
                     position: 'inner'
                 },
@@ -172,10 +262,11 @@
                 data: <?php echo $data1 ?>
             },
             {
-                color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
+               // color: ['#CC9900','#3366CC','#9900CC','#66CC66','#CC6600','#963620','#FF3366','#66CCFF','#CC00CC'],
                 name: '详细状况',
                 type: 'pie',
-                radius: ['75%', '100%'],
+                radius: ['60%', '75%'],
+                left:'5',
                 label: {
                     show: false,
                     formatter: '{b|{b}}',
@@ -196,16 +287,21 @@
     window.onresize = function () {
         myChart1.resize();
         myChart2.resize();
-        myChart3.resize();
         ScatterChart.resize();
+        // myChart2.resize();
+        RaderChart.resize();
+        FinChart.resize();
     }
-</script>
 
+    // function clickClick(){
+    //     console.log($('#t_class').find('option:selected').text());
+    // }
+</script>
 <script>
 
     var d1 = <?php echo json_encode($chart_data_all)?>;
     var d2 = <?php echo json_encode($chart_data_all1)?>;
-    var ScatterChart = echarts.init(document.getElementById('Scatter'));
+    var ScatterChart = echarts.init(document.getElementById('Scatter'),'macarons');
     var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
         '7a', '8a', '9a','10a','11a',
         '12p', '1p', '2p', '3p', '4p', '5p',
@@ -220,7 +316,7 @@
         tooltip: {
             position: 'top'
         },
-        title: [],
+        title:[],
         singleAxis: [],
         series: []
     };
@@ -232,16 +328,17 @@
                 fontStyle:'oblique'
             },
 
-            top: (idx + 0.2) * 100 / 7 + '%',
+            top: (idx + 0.42) * 100 / 7 + '%',
             text: day,
 
         });
         option.singleAxis.push({
+
             left: 80,
             type: 'category',
             boundaryGap: false,
             data: hours,
-            top: (idx * 100 / 7 + 5) + '%',
+            top: (idx * 100 / 7 + 8) + '%',
             height: (100 / 7 - 15) + '%',
             axisLabel: {
                 interval: 2
@@ -254,17 +351,509 @@
             left:'100',
             data: [],
             symbolSize: function (dataItem) {
-                return dataItem[1] * 3;
+                return dataItem[1] * 2;
             }
         });
     });
 
     echarts.util.each(data, function (dataItem) {
-        console.log(dataItem);
-        console.log(dataItem[0]);console.log(dataItem[1]);console.log(dataItem[2]);
+
         option.series[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
     });
 
     ScatterChart.setOption(option);
+
+</script>
+<script>
+    var RaderChart = echarts.init(document.getElementById('Rader'),'macarons');
+
+    option = {
+        tooltip: {
+
+        },
+        title:{
+            text:'<?php echo $ClassNames ?>'+"班级章节分数分布",
+            textStyle:{
+                fontSize:15,
+            },
+            left:'center'
+        },
+        legend: {
+           bottom:'5px'
+        },
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    backgroundColor: '#999',
+                    borderRadius: 3,
+                    padding: [3, 5]
+                }
+            },
+            indicator: [
+                <?php
+                for ($i=0;$i<count($Arrays);$i++){
+                $strname = array_keys($Arrays)[$i];
+                $num = $Arrays[$strname];
+                ?>
+                {name: '<?php echo $strname ?>', max: 100},
+                <?php } ?>
+            ],
+            radius: '55%',
+
+        },
+        series: [{
+            name: '分数分布',
+            type: 'radar',
+            areaStyle: {normal: {}},
+            symbolSize: 1, // 拐点的大小
+            data: [
+
+
+                {
+
+                    value: [<?php
+                        for ($i=0;$i<count($Arrays);$i++){
+                        $strname = array_keys($Arrays)[$i];
+                        $num = $Arrays[$strname];
+                        ?>
+                        <?php echo $num ?>,
+                        <?php } ?>],
+                    name: '<?php echo $name?>',
+                    label: {
+                        normal: {
+                            show: false,
+
+                        },
+                    },
+
+
+                },{
+                    value: [<?php
+                        for ($i=0;$i<count($Arrays2);$i++){
+                        $strname2 = array_keys($Arrays2)[$i];
+                        $num2 = $Arrays2[$strname2];
+                        ?>
+                        <?php echo $num2 ?>,
+                        <?php } ?>],
+                    name: '<?php echo $name2?>',
+                    label: {
+                        normal: {
+                            show: false,
+
+                        },
+                    },
+                },
+            ]
+        }]
+    };
+
+    RaderChart.setOption(option);
+
+</script>
+<script>
+
+    var FinChart = echarts.init(document.getElementById('Finance'),'macarons');
+    var names = <?php echo json_encode(array_keys($TArray)) ?>;
+
+
+    option = {
+
+
+        baseOption: {
+
+            title:{
+                text:'<?php echo $ClassNames ?>'+"班级错误类型数量分布",
+                textStyle:{
+                    fontSize:15,
+                },
+                left:'center'
+            },
+
+            timeline: {
+                show:false
+            },
+            tooltip: {
+                show:false
+            },
+            legend: {
+                left: 'center',
+                show:false,
+                itemGap:5
+            },
+            calculable : true,
+            grid: {
+                left: 80,
+                top:80,
+                bottom:20,
+                tooltip: {
+                    show:false,
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow',
+                        label: {
+                            show: true,
+                            formatter: function (params) {
+                                return params.value.replace('\n', '');
+                            }
+                        }
+                    }
+                }
+            },
+            xAxis: [
+                {
+                    'type':'category',
+                    'axisLabel':{'interval':0,'fontSize':10},
+                    'data':[
+                        '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                    ],
+                    splitLine: {show: false},
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '数量'
+                }
+            ],
+            series: [
+                {name: '数量', type: 'bar',bottom:'50'},
+                {
+                    name: '问题类型占比',
+                    type: 'pie',
+                    center: ['75%', '35%'],
+                    radius: '28%',
+                    z: 100,
+                    top:'20'
+
+                }
+            ]
+        },
+
+
+
+        options: [
+            {
+
+                series: [
+                    {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                    {data: [
+                            <?php
+                            for ($i=0;$i<count($TArray);$i++){
+                            $strs = array_keys($TArray)[$i];
+                            $num = $TArray[$strs];
+                            ?>
+                            {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                            <?php } ?>
+
+                        ]}
+                ]
+            },
+
+        ],
+
+
+    };
+
+    FinChart.on('click',function(params){  //点击事件
+        var name = params.name;
+        var seriesType = params.seriesType;
+        var tclass1 = '<?php echo $t_class ?>';
+        var tclass2 = [];
+        <?php $sql = "select tclass from users where user_id ='$sid'";
+            $result = mysql_query_cache($sql);
+            $strclass = explode(',',$result[0][0]);
+            for($i=0;$i<count($strclass);$i++){
+                ?>
+                var arr = '<?php echo $strclass[$i] ?>';
+                tclass2.push(arr);
+            <?php } ?>
+        var uid = '<?php echo $userId ?>';
+        console.log(tclass1);
+        console.log(tclass2);
+        console.log(tclass2.indexOf(tclass1));
+        console.log(uid);
+        for (var i=0;i<names.length;i++){
+            if (names[i]==name&&seriesType=='pie'&&tclass2.indexOf(tclass1)==-1&&uid.length==0){  //如果name存在且是饼图上的name且此时为全部人则
+
+                window.location.href="/HUELOJ/teacherEcharts.php?data="+name;
+                option = {
+                    baseOption: {
+                        timeline: {
+                            show:false
+                        },
+                        tooltip: {
+                            show:false
+                        },
+                        legend: {
+                            left: 'center',
+                            show:false,
+                            itemGap:5
+                        },
+                        calculable : true,
+                        grid: {
+                            left: 80,
+                            top:80,
+                            bottom:20,
+                            tooltip: {
+                                show:false,
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow',
+
+                                    label: {
+                                        show: true,
+                                        formatter: function (params) {
+                                            return params.value.replace('\n', '');
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        xAxis: [
+                            {
+                                'type':'category',
+                                'axisLabel':{'interval':0,'fontSize':10},
+                                'data':[
+                                    '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                                ],
+                                splitLine: {show: false},
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '数量'
+                            }
+                        ],
+                        series: [
+                            {name: '数量', type: 'bar'},
+                            {
+                                name: '问题类型占比',
+                                type: 'pie',
+                                center: ['75%', '35%'],
+                                label:{show:false},
+                                radius: '28%',
+                                z: 100
+                            }
+                        ]
+                    },
+
+
+
+                    options: [
+                        {
+
+                            series: [
+                                {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                                {data: [
+                                        <?php
+                                        for ($i=0;$i<count($TArray);$i++){
+                                        $strs = array_keys($TArray)[$i];
+                                        $num = $TArray[$strs];
+                                        ?>
+                                        {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                                        <?php } ?>
+
+                                    ]}
+                            ]
+                        },
+
+                    ],
+
+
+                };
+            }else if (names[i]==name&&seriesType=='pie'&&tclass2.indexOf(tclass1)!=-1&&uid.length==0){
+                window.location.href="/HUELOJ/teacherEcharts2.php?data="+name+"&t_class="+tclass1;
+                option = {
+
+
+
+                    baseOption: {
+                        timeline: {
+                            show:false
+                        },
+                        tooltip: {
+                            show:false
+                        },
+                        legend: {
+                            left: 'center',
+                            show:false,
+                            itemGap:5
+                        },
+                        calculable : true,
+                        grid: {
+                            left: 80,
+                            top:80,
+                            bottom:20,
+                            tooltip: {
+                                show:false,
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow',
+
+                                    label: {
+                                        show: true,
+                                        formatter: function (params) {
+                                            return params.value.replace('\n', '');
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        xAxis: [
+                            {
+                                'type':'category',
+                                'axisLabel':{'interval':0,'fontSize':10},
+                                'data':[
+                                    '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                                ],
+                                splitLine: {show: false},
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '数量'
+                            }
+                        ],
+                        series: [
+                            {name: '数量', type: 'bar'},
+                            {
+                                name: '问题类型占比',
+                                type: 'pie',
+                                center: ['75%', '35%'],
+                                radius: '28%',
+                                z: 100
+                            }
+                        ]
+                    },
+
+
+
+                    options: [
+                        {
+
+                            series: [
+                                {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                                {data: [
+                                        <?php
+                                        for ($i=0;$i<count($TArray);$i++){
+                                        $strs = array_keys($TArray)[$i];
+                                        $num = $TArray[$strs];
+                                        ?>
+                                        {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                                        <?php } ?>
+
+                                    ]}
+                            ]
+                        },
+
+                    ],
+
+
+                };
+            }else if (names[i]==name&&seriesType=='pie'&&uid.length!=0){
+                window.location.href="/HUELOJ/teacherEcharts3.php?data="+name+"&user_id="+uid;
+                option = {
+
+
+
+                    baseOption: {
+                        timeline: {
+                            show:false
+                        },
+                        tooltip: {
+                            show:false
+                        },
+                        legend: {
+                            left: 'center',
+                            show:false,
+                            itemGap:5
+                        },
+                        calculable : true,
+                        grid: {
+                            left: 80,
+                            top:80,
+                            bottom:20,
+                            tooltip: {
+                                show:false,
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow',
+
+                                    label: {
+                                        show: true,
+                                        formatter: function (params) {
+                                            return params.value.replace('\n', '');
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        xAxis: [
+                            {
+                                'type':'category',
+                                'axisLabel':{'interval':0,'fontSize':10},
+                                'data':[
+                                    '正确','格式错误','答案错误','时间超限','输出超限','运行错误','编译错误','内存超限'
+                                ],
+                                splitLine: {show: false},
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '数量'
+                            }
+                        ],
+                        series: [
+                            {name: '数量', type: 'bar'},
+                            {
+                                name: '问题类型占比',
+                                type: 'pie',
+                                center: ['75%', '35%'],
+                                radius: '28%',
+                                z: 100
+                            }
+                        ]
+                    },
+
+
+
+                    options: [
+                        {
+
+                            series: [
+                                {data: [<?php echo $sums ?>,<?php echo $sums5 ?>,<?php echo $sums1 ?>,<?php echo $sums2 ?>,<?php echo $sums3 ?>,<?php echo $sums4 ?>,<?php echo $sums5 ?>,<?php echo $sums6 ?>]},
+                                {data: [
+                                        <?php
+                                        for ($i=0;$i<count($TArray);$i++){
+                                        $strs = array_keys($TArray)[$i];
+                                        $num = $TArray[$strs];
+                                        ?>
+                                        {name: '<?php echo $strs ?>', value: <?php echo $num ?>},
+                                        <?php } ?>
+
+                                    ]}
+                            ]
+                        },
+
+                    ],
+
+
+                };
+            }
+        }
+
+    });
+
+
+
+
+    FinChart.setOption(option);
+
+
 
 </script>

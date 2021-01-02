@@ -24,6 +24,12 @@
 <!--<body style="background-image: url(/HUELOJ/echarts/bg.jpg)">-->
 <body>
 <div class="container">
+    <?php
+        echo $contestTemp[0][0]."<br/>";
+        echo $pid_cnt."<br/>";
+        echo print_r($studentMark1)."<br/>";
+        echo print_r($tttttt)."<br/>";
+    ?>
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="row">
@@ -270,7 +276,7 @@
                 radius: ['55%', '80%'],
                 left:'5',
                 label: {
-                    // show: false,
+                    show: false,
                     formatter: '{b|{b}}',
                     rich: {
                         b: {

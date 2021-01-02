@@ -1065,13 +1065,202 @@ if(empty($Name)) {
         }
     }
 }
-
-
-
 //第五个图-------------end-------------
 
 
+// 基桑图新的需求(获取老师创建的考试的学生的成绩走势)----------start-------------
 
+// 1先获取老师创建的考试id
+class TM{
+    var $solved=0;
+    var $time=0;
+    var $p_wa_num;
+    var $p_ac_sec;
+    var $user_id;
+    var $nick;
+    var $mark=0;
+    function TM(){
+        $this->solved=0;
+        $this->time=0;
+        $this->p_wa_num=array(0);
+        $this->p_ac_sec=array(0);
+    }
+    function Add($pid,$sec,$res,$mark_base,$mark_per_problem,$mark_per_punish){
+        global $OJ_CE_PENALTY;
+        if (isset($this->p_ac_sec[$pid])&&$this->p_ac_sec[$pid]>0)
+            return;
+        if ($res!=4){
+            if(isset($OJ_CE_PENALTY)&&!$OJ_CE_PENALTY&&$res==11) return;
+            if(isset($this->p_wa_num[$pid])){
+                $this->p_wa_num[$pid]++;
+            }else{
+                $this->p_wa_num[$pid]=1;
+            }
+        }else{
+            $this->p_ac_sec[$pid]=$sec;
+            $this->solved++;
+            $this->time+=$sec+$this->p_wa_num[$pid]*1200;
+            if($this->mark==0){
+                $this->mark=$mark_base;
+            }else{
+                $this->mark+=$mark_per_problem;
+            }
+            $punish=intval($this->p_wa_num[$pid]*$mark_per_punish);
+            if($punish<intval($mark_per_problem*.8))
+                $this->mark-=$punish;
+            else
+                $this->mark-=intval($mark_per_problem*.8);
+        }
+    }
+}
+function  getMark($users,  $start,  $end, $s) {
+    $accum = 0;
+    $p=0;
+    $ret = 0;
+    $cn=count($users);
+    for ( $i = $end; $i > $start; $i--) {
+        $prob = $cn
+            * normalDistribution($i, ($start + $end) / 2+10, ($end - $start)
+                / $s);
+        $accum += $prob;
+    }
+    $p=$accum/$cn;
+    $accum=0;
+    $i=0;
+    for ($i = $end; $i > $start; $i--) {
+        $prob = $cn
+            * normalDistribution($i, ($start + $end) / 2+10, ($end - $start)
+                / $s);
+        $accum += $prob;
+        while ($accum > $p/2) {
+            if ($ret<$cn)
+                $users[$ret]->mark=$i;
+            $accum -= $p;
+            $ret++;
+        }
+    }
+    while($ret<$cn){
+        $users[$ret]->mark=$users[$ret-1]->mark;
+        $ret++;
+    }
+    return $ret;
+}
+function s_cmp($A,$B){
+    if ($A->solved!=$B->solved) return $A->solved<$B->solved;
+    else return $A->time>$B->time;
+}
+
+$teacher_id = 'li20171026';
+$sql = "SELECT contest_id from contest where user_id = '$teacher_id' order by end_time desc";
+$result = mysql_query_cache($sql);
+$contestIds = $result;
+$studentMark1 = Array();
+$studentMark2 = Array();
+$studentMark3 = Array();
+$studentMark4 = Array();
+// 2根据考试id获取考试学生的考试成绩
+// 3根据成绩排名分等级，拼凑桑吉图数据
+global $mark_base,$mark_per_problem,$mark_per_punish;
+$mark_start=60;
+$mark_end=100;
+$mark_sigma=5;
+if(count($contestIds) == 0){
+
+}elseif(count($contestIds) > 1){
+    $contestTemp =$contestIds[0];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark1 = $result;
+
+    $sql="SELECT count(1) FROM `contest_problem` WHERE `contest_id`= $contestTemp[0]";
+    $result=mysql_query_cache($sql);
+    $row=$result[0];
+    $pid_cnt=intval($row[0]);
+    if($pid_cnt==1) {
+        $mark_base=100;
+        $mark_per_problem=0;
+    }else{
+        $mark_per_problem=(100-$mark_base)/($pid_cnt-1);
+    }
+
+    $user_cnt=0;
+    $user_name='';
+    $U=array();
+    foreach($studentMark1 as $row){
+        $n_user=$row['user_id'];
+        if (strcmp($user_name,$n_user)){
+            $user_cnt++;
+            $U[$user_cnt]=new TM();
+            $U[$user_cnt]->user_id=$row['user_id'];
+            $U[$user_cnt]->nick=$row['nick'];
+            $user_name=$n_user;
+        }
+        if( time()<$end_time+$OJ_RANK_LOCK_DELAY && $lock<strtotime($row['in_date']) )
+            $U[$user_cnt]->Add($row['num'],strtotime($row['in_date'])-$start_time,0,$mark_base,$mark_per_problem,$mark_per_punish);
+        else
+            $U[$user_cnt]->Add($row['num'],strtotime($row['in_date'])-$start_time,intval($row['result']),$mark_base,$mark_per_problem,$mark_per_punish);
+    }
+    usort($U,"s_cmp");
+    $rank=1;
+
+    $tttttt = Array();
+    for ($i=0;$i<$user_cnt;$i++){
+        $tttttt[$i] = $U[$i]->mark>0?intval($U[$i]->mark):0;
+    }
+}elseif(count($contestIds) == 2){
+    $contestTemp =$contestIds[0];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark1 = $result;
+    $contestTemp =$contestIds[1];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark2 = $result;
+}elseif(count($contestIds) == 3){
+    $contestTemp =$contestIds[0];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark1 = $result;
+    $contestTemp =$contestIds[1];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark2 = $result;
+    $contestTemp =$contestIds[2];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark3 = $result;
+}else{
+    $contestTemp =$contestIds[0];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark1 = $result;
+    $contestTemp =$contestIds[1];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark2 = $result;
+    $contestTemp =$contestIds[2];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark3 = $result;
+    $contestTemp =$contestIds[3];
+    $sql="select user_id,nick,solution.result,solution.num,solution.in_date from solution 
+          where solution.contest_id= '$contestTemp[0]' and num>=0 and problem_id>0 ORDER BY user_id,solution_id";
+    $result=mysql_query_cache($sql);
+    $studentMark4 = $result;
+
+}
+
+
+// 基桑图新的需求----------end---------------
 /////////////////////////Template
 require("template/".$OJ_TEMPLATE."/teacherEcharts.php");
 /////////////////////////Common foot

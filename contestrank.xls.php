@@ -82,22 +82,15 @@ function  getMark($users,  $start,  $end, $s) {
 		 $p=0;
 		 $ret = 0;
 		 $cn=count($users);
-		
-		
 		for ( $i = $end; $i > $start; $i--) {
-			
 		    $prob = $cn
 					* normalDistribution($i, ($start + $end) / 2+10, ($end - $start)
 							/ $s);
 			$accum += $prob;
-			
-		
 		}
-		
 		$p=$accum/$cn;
 		$accum=0;
 		$i=0;
-	
 		for ($i = $end; $i > $start; $i--) {
 			$prob = $cn
 					* normalDistribution($i, ($start + $end) / 2+10, ($end - $start)
@@ -115,11 +108,7 @@ function  getMark($users,  $start,  $end, $s) {
 			$ret++;
 		}
 		return $ret;
-		
 	}
-
-
-
 // contest start time
 if (!isset($_GET['cid'])) die("No Such Contest!");
 $cid=intval($_GET['cid']);
@@ -160,7 +149,7 @@ $lock=$end_time-($end_time-$start_time)*$OJ_RANK_LOCK_PERCENT;
 
 $sql="SELECT count(1) FROM `contest_problem` WHERE `contest_id`=?";
 $result=pdo_query($sql,$cid);
- $row=$result[0];
+$row=$result[0];
 $pid_cnt=intval($row[0]);
 if($pid_cnt==1) {
 	$mark_base=100;

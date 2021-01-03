@@ -25,10 +25,9 @@
 <body>
 <div class="container">
     <?php
-        echo $contestTemp[0][0]."<br/>";
-        echo $pid_cnt."<br/>";
-        echo print_r($studentMark1)."<br/>";
-        echo print_r($tttttt)."<br/>";
+    echo $contestIds[0][0];
+        echo print_r($studentMark4)."<br/>";
+        echo print_r($studentLinks)."<br/>";
     ?>
     <?php include("template/$OJ_TEMPLATE/nav.php");?>
     <!-- Main component for a primary marketing message or call to action -->

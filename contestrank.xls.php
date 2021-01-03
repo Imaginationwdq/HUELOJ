@@ -109,6 +109,7 @@ function  getMark($users,  $start,  $end, $s) {
 		}
 		return $ret;
 	}
+
 // contest start time
 if (!isset($_GET['cid'])) die("No Such Contest!");
 $cid=intval($_GET['cid']);
@@ -184,7 +185,8 @@ $U=array();
 		  $U[$user_cnt]->Add($row['num'],strtotime($row['in_date'])-$start_time,0,$mark_base,$mark_per_problem,$mark_per_punish);
         else
 		  $U[$user_cnt]->Add($row['num'],strtotime($row['in_date'])-$start_time,intval($row['result']),$mark_base,$mark_per_problem,$mark_per_punish);
-}
+
+ }
 
 usort($U,"s_cmp");
 $rank=1;
@@ -219,7 +221,6 @@ for ($i=0;$i<$user_cnt;$i++){
 	echo "<td>$usolved</td>";
 	echo "<td>";
         if($usolved==0) $U[$i]->mark=0;	
-	
 	echo $U[$i]->mark>0?intval($U[$i]->mark):0;
 	echo "</td>";
 	for ($j=0;$j<$pid_cnt;$j++){

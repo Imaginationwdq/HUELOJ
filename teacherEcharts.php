@@ -1093,7 +1093,82 @@ if(count($contestIds) == 0){
     $studentMark2 = getNickAndMark($contestIds[2][0]);
     $studentMark3 = getNickAndMark($contestIds[1][0]);
     $studentMark4 = getNickAndMark($contestIds[0][0]);
-    // 遍历$studentMark1，先看A级的学生，在第二次考试中的成绩走势
+    // 遍历$studentMark1，得到A1-A2,A1-B2,A1-C2,A1-D2,A1-E2的value。得到B1的，C1的，D1的，E1的。
+    $A1toA2Value = 0;
+    $A1toB2Value = 0;
+    $A1toC2Value = 0;
+    $A1toD2Value = 0;
+    $A1toE2Value = 0;
+
+    $B1toA2Value = 0;
+    $B1toB2Value = 0;
+    $B1toC2Value = 0;
+    $B1toD2Value = 0;
+    $B1toE2Value = 0;
+
+    $C1toA2Value = 0;
+    $C1toB2Value = 0;
+    $C1toC2Value = 0;
+    $C1toD2Value = 0;
+    $C1toE2Value = 0;
+
+    $D1toA2Value = 0;
+    $D1toB2Value = 0;
+    $D1toC2Value = 0;
+    $D1toD2Value = 0;
+    $D1toE2Value = 0;
+
+    $E1toA2Value = 0;
+    $E1toB2Value = 0;
+    $E1toC2Value = 0;
+    $E1toD2Value = 0;
+    $E1toE2Value = 0;
+    for($i=0;$i<count($studentMark1);$i++){
+        $mark = getMarkByNick($studentMark1[$i]['nick'],$studentMark2);
+        if($studentMark1[$i]['mark']>=95)
+        {
+            if($mark>=95) $A1toA2Value++;
+            elseif($mark>=90) $A1toB2Value++;
+            elseif($mark>=85) $A1toC2Value++;
+            elseif($mark>=70) $A1toD2Value++;
+            else $A1toE2Value++;
+        }
+        elseif($studentMark1[$i]['mark']>=90)
+        {
+            if($mark>=95) $B1toA2Value++;
+            elseif($mark>=90) $B1toB2Value++;
+            elseif($mark>=85) $B1toC2Value++;
+            elseif($mark>=70) $B1toD2Value++;
+            else $B1toE2Value++;
+        }
+        elseif($studentMark1[$i]['mark']>=85)
+        {
+            if($mark>=95) $C1toA2Value++;
+            elseif($mark>=90) $C1toB2Value++;
+            elseif($mark>=85) $C1toC2Value++;
+            elseif($mark>=70) $C1toD2Value++;
+            else $C1toE2Value++;
+        }
+        elseif($studentMark1[$i]['mark']>=70)
+        {
+            if($mark>=95) $D1toA2Value++;
+            elseif($mark>=90) $D1toB2Value++;
+            elseif($mark>=85) $D1toC2Value++;
+            elseif($mark>=70) $D1toD2Value++;
+            else $D1toE2Value++;
+        }
+        else
+        {
+            if($mark>=95) $E1toA2Value++;
+            elseif($mark>=90) $E1toB2Value++;
+            elseif($mark>=85) $E1toC2Value++;
+            elseif($mark>=70) $E1toD2Value++;
+            else $E1toE2Value++;
+        }
+    }
+
+
+
 }
 
 
@@ -1139,7 +1214,7 @@ class TM2{
         }
     }
 }
-function  getMark2($users,  $start,  $end, $s) {
+function getMark2($users,  $start,  $end, $s) {
     $accum = 0;
     $ret = 0;
     $cn=count($users);
@@ -1246,6 +1321,17 @@ function getNickAndMark($contestId) {
     }
 
     return $users;
+}
+// 根据昵称获取成绩
+function getMarkByNick($nick,$array){
+    $mark = 0;
+    for($i=0;$i<count($array);$i++){
+        if($array[$i]['nick'] == $nick){
+            $mark = $array[$i]['mark'];
+            break;
+        }
+    }
+    return $mark;
 }
 // 基桑图新的需求----------end---------------
 /////////////////////////Template
